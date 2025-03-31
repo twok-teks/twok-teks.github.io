@@ -68,3 +68,43 @@ footer {
   font-size: 0.9rem;
   color: #eee;
 }
+
+#theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: #ffcc00;
+  border: none;
+  padding: 8px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  z-index: 999;
+}
+
+.dark-mode {
+  background: #1a1a1a;
+  color: #eee;
+}
+
+.dark-mode section {
+  background: #2a2a2a;
+}
+
+.dark-mode a {
+  color: #90caf9;
+}
+
+.dark-mode header h1 {
+  text-shadow: none;
+}
+
+.project {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.project:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
