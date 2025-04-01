@@ -6,47 +6,68 @@
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Press Start 2P', cursive;
   line-height: 1.6;
-  background: url('daisy-field.gif') no-repeat center center fixed;
-  background-size: cover;
-  color: #fff;
+  background-color: #000000; /* deep purple retro bg */
+  color: #f2f2f2;
   padding: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Header with pixel daisy field */
 header {
+  background: url('train.gif') no-repeat center center;
+  background-size: cover;
   text-align: center;
-  margin-bottom: 30px;
+  font-weight: bold;
+  padding: 60px 20px;
+  border: 4px solid #ff00cc;
+  border-radius: 12px;
+  box-shadow: 0 0 12px #ff00cc;
+  margin-bottom: 40px;
 }
 
 header h1 {
-  font-size: 3rem;
+  font-size: 1.75rem; /* Press Start 2P is small by default */
   margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+  color: #008000;
+  text-shadow: 2px 2px 0px #000;
 }
 
 .social-links a {
   margin: 0 10px;
-  font-size: 1.5rem;
-  color: #fff;
-  transition: color 0.3s;
+  font-size: 1.3rem;
+  color: #008000;
+  transition: transform 0.3s ease;
 }
 
 .social-links a:hover {
-  color: #ffcc00;
+  transform: scale(1.2);
+  color: #ff00cc;
 }
 
 section {
-  background: rgba(0, 0, 0, 0.7);
+  margin-left: 130px;
+  margin-right: 130px;
+  background: #330033;
   margin-bottom: 20px;
   padding: 20px;
   border-radius: 10px;
+  border: 2px dashed 	#00ffe0;
+  box-shadow: 0 0 7px #83e7eb;
 }
 
 section h2 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-  color: #ffcc00;
+  font-size: 1.3rem;
+  margin-bottom: 13px;
+  color: #ff66cc;
+  text-shadow: 1px 1px 0px #000;
+}
+
+section p {
+  font-family: 'VT323', monospace;
+  font-size: 1.9rem; /* you can adjust this to 0.8rem, 0.9rem, etc. */
+  line-height: 1.3; /* optional: improves readability */
 }
 
 .project h3 a {
@@ -56,39 +77,47 @@ section h2 {
 
 .project h3 a:hover {
   text-decoration: underline;
+  color: #ff66cc;
 }
 
 a {
-  color: #ffccff;
+  color: #008000;
 }
 
 footer {
   text-align: center;
   padding: 10px;
-  font-size: 0.9rem;
-  color: #eee;
+  font-size: 0.6rem;
+  color: #aaa;
+  margin-top: 20px;
 }
 
+/* Theme toggle button retro style */
 #theme-toggle {
   position: fixed;
   top: 15px;
   right: 15px;
-  background: #ffcc00;
-  border: none;
-  padding: 8px 12px;
-  font-size: 1rem;
+  background: #00ffff;
+  color: #000;
+  border: 2px solid #ff00cc;
+  padding: 10px;
+  font-size: 0.7rem;
+  font-family: 'Press Start 2P', cursive;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 4px;
   z-index: 999;
+  box-shadow: 2px 2px 0px #000;
 }
 
+/* Dark mode still usable */
 .dark-mode {
-  background: #1a1a1a;
-  color: #eee;
+  background: #000000;
+  color: #ccc;
 }
 
 .dark-mode section {
-  background: #2a2a2a;
+  background: #111;
+  border-color: #990099;
 }
 
 .dark-mode a {
@@ -100,11 +129,102 @@ footer {
 }
 
 .project {
+  padding-left: 20px;
+  font-family: 'VT323', monospace;
+  font-size: 1.7rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid #00a500;
+  margin-top: 10px;
 }
 
 .project:hover {
   transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 12px #00ff62;
+}
+
+#experience {
+  margin-left: 130px;
+  margin-right: 130px;
+  background: #330033;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px dashed 	#00ffe0;
+  box-shadow: 0 0 7px #83e7eb;
+}
+
+#experience h2 {
+  font-size: 1.3rem;
+  margin-bottom: 13px;
+  color: #ff66cc;
+  text-shadow: 1px 1px 0px #000;
+}
+
+.job h3 {
+  font-family: 'VT323', monospace;
+  font-size: 2.3rem;
+  color: #00ffff;
+  margin-bottom: 4px;
+}
+
+.job-date {
+  font-family: 'VT323', monospace;
+  float: right;
+  font-size: 1.7rem;
+  color: #999;
+}
+
+.job p {
+  font-family: 'VT323', monospace;
+  font-size: 1.9rem;
+  color: #00ffcc;
+  margin: 4px 0 8px 0;
+}
+
+.job ul {
+  font-family: 'VT323', monospace;
+  list-style: square;
+  padding-left: 20px;
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+.job ul li {
+  margin-bottom: 3px;
+}
+
+.resume-link {
+  text-align: center;
+  font-family: 'VT323', monospace;
+  font-size: 1.7rem;
+  margin-top: 20px;
+  color: #00ffcc;
+}
+
+.proj-date {
+  font-family: 'VT323', monospace;
+  margin-right: 20px;
+  float: right;
+  font-size: 1.7rem;
+  color: #999;
+}
+
+.gh-icon {
+  margin-left: 5px;
+  font-size: 1.2rem;
+  color: #00ffff;
+  transition: color 0.1s;
+}
+
+.gh-icon:hover {
+  color: #ff66cc;
+}
+
+#fun li{
+  font-family: 'VT323', monospace;
+  list-style: square;
+  padding-left: 20px;
+  font-size: 1.7rem;
+  color: #fff;
 }
