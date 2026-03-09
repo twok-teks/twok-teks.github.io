@@ -1,185 +1,2172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>twok-teks | Khanh Van</title>
   <link rel="icon" href="favicondaisy.png" type="image/png" />
-  <link rel="stylesheet" href="style.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #07040c;
+      --panel: rgba(43, 18, 58, 0.82);
+      --panel-2: rgba(20, 10, 28, 0.92);
+      --text: #f8f8ff;
+      --green: #41ff6d;
+      --cyan: #00f6ff;
+      --pink: #ff4fd8;
+      --yellow: #ffe45e;
+      --muted: #c1b8d9;
+      --border: rgba(0, 246, 255, 0.55);
+      --shadow-pink: 0 0 16px rgba(255, 79, 216, 0.45);
+      --shadow-cyan: 0 0 18px rgba(0, 246, 255, 0.35);
+      --radius: 18px;
+      --max: 1240px;
+      --nav-height: 86px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background:
+        radial-gradient(circle at top, rgba(84, 35, 120, 0.5), transparent 38%),
+        radial-gradient(circle at 80% 20%, rgba(0, 246, 255, 0.16), transparent 18%),
+        linear-gradient(180deg, #09050f 0%, #050207 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+.quest-log{
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.quest-entry{
+  font-family:'VT323', monospace;
+  font-size:1.6rem;
+  line-height:1.3;
+}
+
+.quest-title{
+  color:#00ff62;
+  text-shadow:0 0 6px #00ff62;
+  display:block;
+  margin-bottom:4px;
+}
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255,255,255,0.04) 0px,
+          rgba(255,255,255,0.04) 1px,
+          transparent 2px,
+          transparent 4px
+        );
+      mix-blend-mode: soft-light;
+      opacity: 0.34;
+      z-index: 100;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at center, transparent 58%, rgba(0,0,0,0.4) 100%);
+      z-index: 99;
+    }
+
+    .stars,
+    .stars::before,
+    .stars::after {
+      position: fixed;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1.4px),
+        radial-gradient(circle, rgba(0,246,255,.65) 1.2px, transparent 1.8px),
+        radial-gradient(circle, rgba(255,79,216,.55) 1px, transparent 1.6px);
+      background-size: 180px 180px, 260px 260px, 320px 320px;
+      background-position: 0 0, 40px 60px, 90px 120px;
+      opacity: .25;
+      z-index: -3;
+      animation: drift 28s linear infinite;
+    }
+
+    .stars::before { opacity: .16; transform: scale(1.2); animation-duration: 42s; }
+    .stars::after { opacity: .12; transform: scale(1.45); animation-duration: 58s; }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(120px); }
+    }
+
+    .boot-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: #000;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      transition: opacity .9s ease, visibility .9s ease;
+    }
+
+    .boot-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .boot-box {
+      width: min(720px, 100%);
+      border: 3px solid var(--green);
+      box-shadow: 0 0 25px rgba(65,255,109,.35);
+      background: rgba(0,0,0,.92);
+      padding: 28px;
+      color: var(--green);
+      font-family: 'VT323', monospace;
+      font-size: clamp(1.35rem, 2.7vw, 2rem);
+      line-height: 1.2;
+    }
+
+    .boot-box h1 {
+      font-family: 'Press Start 2P', cursive;
+      font-size: clamp(.85rem, 2vw, 1.2rem);
+      color: var(--yellow);
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(255,228,94,.4);
+    }
+
+    .boot-line { opacity: 0; transform: translateY(10px); animation: bootLine .55s forwards; }
+    .boot-line:nth-child(2) { animation-delay: .1s; }
+    .boot-line:nth-child(3) { animation-delay: .35s; }
+    .boot-line:nth-child(4) { animation-delay: .6s; }
+    .boot-line:nth-child(5) { animation-delay: .9s; }
+    .boot-line:nth-child(6) { animation-delay: 1.2s; }
+
+    @keyframes bootLine {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .shell {
+      width: min(var(--max), calc(100% - 28px));
+      margin: 0 auto;
+      padding-bottom: 72px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 16px;
+      z-index: 50;
+      height: var(--nav-height);
+      margin: 16px auto 22px;
+      backdrop-filter: blur(14px);
+      background: rgba(7, 4, 12, 0.75);
+      border: 2px solid rgba(255,79,216,.4);
+      box-shadow: var(--shadow-pink), inset 0 0 18px rgba(255,255,255,.03);
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-badge {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      color: var(--green);
+      background: linear-gradient(180deg, rgba(0,0,0,.8), rgba(43,18,58,.9));
+      border: 2px solid rgba(65,255,109,.55);
+      box-shadow: 0 0 18px rgba(65,255,109,.2);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-copy p {
+      display: none;
+    }
+
+    .brand-copy h1 {
+      font-size: clamp(.7rem, 1.4vw, 1rem);
+      color: var(--yellow);
+      line-height: 1.4;
+      text-shadow: 0 0 12px rgba(255,228,94,.18);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: rgba(255,255,255,.04);
+      border: 2px solid rgba(0,246,255,.4);
+      color: var(--cyan);
+      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    nav ul {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: .54rem;
+      border: 2px solid transparent;
+      transition: .25s ease;
+      min-height: 48px;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--bg);
+      background: linear-gradient(90deg, var(--cyan), #9cfffd);
+      border-color: rgba(255,255,255,.3);
+      box-shadow: 0 0 18px rgba(0,246,255,.35);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: clamp(620px, 88vh, 780px);
+      border: 3px solid rgba(255,79,216,.5);
+      border-radius: 34px;
+      box-shadow: 0 0 32px rgba(255,79,216,.18), inset 0 0 60px rgba(0,246,255,.08);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)),
+        radial-gradient(circle at 50% 5%, rgba(255,228,94,.18), transparent 22%),
+        linear-gradient(180deg, rgba(24,8,34,.7), rgba(6,3,10,.9));
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+      gap: 28px;
+      padding: clamp(26px, 4vw, 40px);
+      align-items: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, transparent 0%, rgba(255,79,216,.08) 70%, transparent 100%),
+        linear-gradient(90deg, transparent 0%, rgba(0,246,255,.08) 50%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 45%;
+      background:
+        linear-gradient(to top, rgba(0,0,0,.65), transparent),
+        repeating-linear-gradient(90deg, rgba(0,246,255,.24) 0 2px, transparent 2px 58px),
+        repeating-linear-gradient(0deg, rgba(0,246,255,.24) 0 2px, transparent 2px 58px);
+      transform: perspective(700px) rotateX(78deg) translateY(35%);
+      transform-origin: bottom;
+      opacity: .55;
+      pointer-events: none;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--green);
+      font-size: .58rem;
+      margin-bottom: 18px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.38);
+      border: 2px solid rgba(65,255,109,.28);
+      box-shadow: 0 0 18px rgba(65,255,109,.12);
+    }
+
+    .eyebrow .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px rgba(65,255,109,.8);
+      animation: blink 1.3s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .35; }
+    }
+
+    .hero h2 {
+      font-size: clamp(1rem, 2.1vw, 1.55rem);
+      line-height: 1.55;
+      color: #fff7cc;
+      text-shadow: 0 0 20px rgba(255,228,94,.18), 2px 2px 0 rgba(0,0,0,.55);
+      margin-bottom: 18px;
+      max-width: none;
+    }
+
+    .hero .tagline {
+      font-family: 'VT323', monospace;
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      color: var(--cyan);
+      margin-bottom: 16px;
+      line-height: 1.15;
+      text-shadow: 0 0 14px rgba(0,246,255,.18);
+    }
+
+    .hero p {
+      font-family: 'VT323', monospace;
+      font-size: clamp(1.45rem, 2.1vw, 1.95rem);
+      line-height: 1.2;
+      color: #f0ebff;
+      max-width: 720px;
+    }
+
+    .hero-actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .btn {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      border: 2px solid rgba(255,255,255,.2);
+      font-size: .58rem;
+      transition: .22s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(90deg, var(--pink), #ff8fe9);
+      color: white;
+      box-shadow: var(--shadow-pink);
+    }
+
+    .btn-secondary {
+      color: var(--cyan);
+      background: rgba(0,0,0,.34);
+      border-color: rgba(0,246,255,.38);
+      box-shadow: var(--shadow-cyan);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      filter: brightness(1.08);
+    }
+
+    .stats {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 560px;
+    }
+
+    .stat {
+      background: rgba(0,0,0,.34);
+      border: 2px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding: 14px;
+    }
+
+    .stat small {
+      display: block;
+      color: var(--muted);
+      font-size: .48rem;
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--green);
+      font-size: .86rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 12px rgba(65,255,109,.2);
+    }
+
+    .stat span {
+      font-family: 'VT323', monospace;
+      font-size: 1.25rem;
+      color: #f5efff;
+      line-height: 1.15;
+      display: block;
+    }
+
+    .cabinet {
+      position: relative;
+      justify-self: center;
+      align-self: center;
+      width: min(390px, 100%);
+      aspect-ratio: 1 / 1;
+      filter: drop-shadow(0 18px 36px rgba(0,0,0,.45));
+      animation: floaty 4.2s ease-in-out infinite;
+    }
+
+    @keyframes floaty {
+      0%,100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .cabinet-body {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #21092a 0%, #16041f 60%, #09020d 100%);
+      border: 3px solid rgba(255,79,216,.48);
+      border-radius: 30px;
+      box-shadow: inset 0 0 30px rgba(255,255,255,.04), 0 0 25px rgba(255,79,216,.18);
+      overflow: hidden;
+    }
+
+    .cabinet-marquee {
+      position: absolute;
+      top: 7%;
+      left: 10%;
+      right: 10%;
+      height: 12%;
+      border-radius: 14px;
+      border: 2px solid rgba(255,228,94,.55);
+      background: linear-gradient(90deg, rgba(255,79,216,.28), rgba(0,246,255,.28));
+      display: grid;
+      place-items: center;
+      color: #fff7cc;
+      font-size: .7rem;
+      text-align: center;
+      padding: 8px;
+      box-shadow: 0 0 18px rgba(255,228,94,.15);
+    }
+
+    .cabinet-screen {
+      position: absolute;
+      top: 23%;
+      left: 11%;
+      right: 11%;
+      height: 37%;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0)),
+        radial-gradient(circle at center, rgba(0,246,255,.1), transparent 60%),
+        #07121c;
+      border: 3px solid rgba(0,246,255,.45);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: inset 0 0 30px rgba(0,0,0,.65), 0 0 18px rgba(0,246,255,.18);
+      overflow: hidden;
+    }
+
+    .cabinet-screen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(to bottom, rgba(255,255,255,.05), rgba(255,255,255,.05) 1px, transparent 2px, transparent 4px);
+      opacity: .25;
+      pointer-events: none;
+    }
+
+    .screen-text {
+      position: relative;
+      z-index: 1;
+      font-family: 'VT323', monospace;
+      font-size: clamp(1.1rem, 2.1vw, 1.55rem);
+      line-height: 1.15;
+      color: var(--green);
+      text-shadow: 0 0 8px rgba(65,255,109,.2);
+    }
+
+    .screen-text .highlight { color: var(--yellow); }
+    .screen-text .cyan { color: var(--cyan); }
+
+    .cabinet-controls {
+      position: absolute;
+      left: 11%;
+      right: 11%;
+      top: 65%;
+      bottom: 10%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .joystick-box,
+    .buttons-box {
+      height: 100%;
+      min-height: 122px;
+      border-radius: 20px;
+      background: rgba(0,0,0,.32);
+      border: 2px solid rgba(255,255,255,.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stick {
+      position: absolute;
+      left: 50%;
+      top: 55%;
+      width: 16px;
+      height: 72px;
+      background: linear-gradient(180deg, #ff90e8, #ff4fd8);
+      border-radius: 999px;
+      transform: translate(-50%, -50%) rotate(-18deg);
+      box-shadow: 0 0 12px rgba(255,79,216,.2);
+    }
+
+    .stick::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #ff4fd8 60%, #af006e 100%);
+    }
+
+    .base {
+      position: absolute;
+      left: 50%;
+      top: 63%;
+      transform: translate(-50%, -50%);
+      width: 98px;
+      height: 98px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.12);
+      background: radial-gradient(circle at center, rgba(255,255,255,.08), rgba(0,0,0,.28));
+    }
+
+    .btns {
+      position: absolute;
+      inset: 14px;
+      display: grid;
+      grid-template-columns: 1fr; max-width:800px; margin:auto;
+      gap: 12px;
+      place-items: center;
+      align-content: center;
+      justify-items: center;
+    }
+
+    .arcade-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      box-shadow: inset -6px -6px 10px rgba(0,0,0,.28), 0 0 16px rgba(0,246,255,.12);
+      border: 2px solid rgba(255,255,255,.16);
+      animation: pulse 1.8s infinite alternate;
+    }
+
+    .arcade-btn:nth-child(1) { background: radial-gradient(circle at 30% 30%, #fff, #00f6ff 60%, #0086a4 100%); }
+    .arcade-btn:nth-child(2) { background: radial-gradient(circle at 30% 30%, #fff, #ff4fd8 60%, #9c006b 100%); }
+    .arcade-btn:nth-child(3) { background: radial-gradient(circle at 30% 30%, #fff, #ffe45e 60%, #c58b00 100%); }
+    .arcade-btn:nth-child(4) { background: radial-gradient(circle at 30% 30%, #fff, #41ff6d 60%, #189436 100%); }
+
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.06); }
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h2 {
+        max-width: none;
+      }
+
+      .cabinet {
+        width: min(360px, 100%);
+        margin-top: 12px;
+      }
+
+      .stats {
+        max-width: none;
+      }
+    }
+
+    .section {
+      position: relative;
+      padding-top: 28px;
+      scroll-margin-top: 118px;
+    }
+
+    .section-shell {
+      background: var(--panel);
+      border: 2px solid var(--border);
+      border-radius: 30px;
+      padding: clamp(22px, 3vw, 34px);
+      box-shadow: var(--shadow-cyan), inset 0 0 22px rgba(255,255,255,.03);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .section-shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.06), transparent 35%);
+      pointer-events: none;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
+    }
+
+    .section-title h3 {
+      color: var(--pink);
+      font-size: clamp(.86rem, 1.8vw, 1.2rem);
+      line-height: 1.4;
+      text-shadow: 0 0 12px rgba(255,79,216,.2);
+    }
+
+    .section-title span {
+      font-size: .52rem;
+      color: var(--green);
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.35);
+      border: 2px solid rgba(65,255,109,.26);
+    }
+
+    .section p,
+    .section li,
+    .terminal-output,
+    .pill,
+    .card-copy,
+    .timeline-copy,
+    .coming-soon-text,
+    .footer-copy {
+      font-family: 'VT323', monospace;
+    }
+
+    .section p {
+      font-size: clamp(1.45rem, 2vw, 1.95rem);
+      line-height: 1.18;
+      color: #f0ebff;
+    }
+
+    .about-grid,
+    .research-grid,
+    .fun-grid,
+    .contact-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1.1fr .9fr;
+    }
+
+    .panel-card {
+      background: rgba(0,0,0,.28);
+      border: 2px solid rgba(255,255,255,.1);
+      border-radius: 22px;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-card h4 {
+      color: var(--yellow);
+      font-size: .62rem;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    .panel-card .sub {
+      color: var(--cyan);
+      margin-bottom: 14px;
+      font-size: .58rem;
+      font-family: 'Press Start 2P', cursive;
+      line-height: 1.6;
+    }
+
+    .tech-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 9px 13px;
+      font-size: 1.25rem;
+      line-height: 1;
+      border: 2px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.05);
+      color: #fff;
+      transition: .2s ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0,246,255,.4);
+      box-shadow: 0 0 14px rgba(0,246,255,.16);
+    }
+
+    .xp-board {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .xp {
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+      border: 2px solid rgba(255,255,255,.1);
+    }
+
+    .xp-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: .48rem;
+      color: #f7f1ff;
+    }
+
+    .xp-track {
+      width: 100%;
+      height: 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .xp-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--green));
+      box-shadow: 0 0 14px rgba(0,246,255,.2);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 10px;
+      bottom: 10px;
+      width: 3px;
+      background: linear-gradient(180deg, var(--pink), var(--cyan), var(--green));
+      box-shadow: 0 0 14px rgba(0,246,255,.16);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-left: 52px;
+      background: rgba(0,0,0,.28);
+      border-radius: 22px;
+      border: 2px solid rgba(255,255,255,.1);
+      padding: 20px 20px 18px;
+      transition: .22s ease;
+    }
+
+    .timeline-item:hover,
+    .project-card:hover,
+    .edu-card:hover,
+    .mini-card:hover,
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px rgba(0,246,255,.16);
+    }
+
+    .edu-date {
+  font-family: 'VT323', monospace;
+  font-size: 1.2rem;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -44px;
+      top: 26px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--yellow);
+      border: 3px solid rgba(0,0,0,.5);
+      box-shadow: 0 0 16px rgba(255,228,94,.35);
+    }
+
+    .timeline-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .timeline-top h4,
+    .project-card h4,
+    .edu-card h4,
+    .mini-card h4,
+    .contact-card h4 {
+      color: var(--cyan);
+      font-size: .68rem;
+      line-height: 1.55;
+    }
+
+    .timeline-meta {
+      color: var(--muted);
+      font-size: .52rem;
+      line-height: 1.6;
+      text-align: right;
+    }
+
+    .timeline-role {
+      color: var(--green);
+      margin-bottom: 10px;
+      font-size: .53rem;
+      line-height: 1.6;
+    }
+
+    .timeline-copy,
+    .card-copy {
+      font-size: 1.5rem;
+      line-height: 1.15;
+      color: #f3ecff;
+    }
+
+    .timeline-list,
+    .fun-list {
+      list-style: none;
+      margin-top: 12px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .timeline-list li,
+    .fun-list li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 1.45rem;
+      line-height: 1.12;
+      color: #fff;
+    }
+
+    .timeline-list li::before,
+    .fun-list li::before {
+      content: ">";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--yellow);
+      font-family: 'Press Start 2P', cursive;
+      font-size: .55rem;
+      transform: translateY(10px);
+    }
+
+    .edu-grid,
+    .projects-grid,
+    .mini-grid,
+    .contact-grid-inner {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .edu-grid {
+      grid-template-columns: minmax(0, 450px);
+      justify-content: center;
+    }
+
+    .edu-card {
+      text-align: center;
+    }
+
+    .edu-card .card-copy {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .edu-list {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin: 14px auto 0;
+      max-width: 720px;
+      text-align: left;
+      font-family: 'VT323', monospace;
+      font-size: 1.45rem;
+      line-height: 1.15;
+      color: #fff;
+    }
+
+    .edu-list li {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .edu-list li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--yellow);
+    }
+
+    .edu-card,
+    .project-card,
+    .mini-card,
+    .contact-card {
+      background: rgba(0,0,0,.28);
+      border: 2px solid rgba(255,255,255,.1);
+      border-radius: 22px;
+      padding: 18px;
+      transition: .22s ease;
+      position: relative;
+    }
+
+    .edu-card .tag,
+    .project-card .tag,
+    .contact-card .tag,
+    .mini-card .tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: .48rem;
+      background: rgba(255,255,255,.06);
+      color: var(--yellow);
+      border: 2px solid rgba(255,228,94,.14);
+    }
+
+    .project-card a,
+    .contact-card a,
+    .footer-copy a,
+    .panel-card a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .project-card a:hover,
+    .contact-card a:hover,
+    .footer-copy a:hover,
+    .panel-card a:hover {
+      color: var(--pink);
+    }
+
+    .project-toolbar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .filter-btn {
+      border: 2px solid rgba(255,255,255,.1);
+      background: rgba(0,0,0,.35);
+      color: #fff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: .47rem;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      color: var(--bg);
+      background: linear-gradient(90deg, var(--yellow), #fff3a0);
+      border-color: rgba(255,255,255,.2);
+      transform: translateY(-2px);
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 2px solid rgba(0,246,255,.22);
+      background: rgba(255,255,255,.03);
+      font-size: .48rem;
+    }
+
+    .terminal-card {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red { background: #ff5f56; }
+    .terminal-dot.yellow { background: #ffbd2e; }
+    .terminal-dot.green { background: #27c93f; }
+
+    .terminal-body {
+      flex: 1;
+      border-radius: 18px;
+      background: #03090d;
+      border: 2px solid rgba(0,246,255,.16);
+      padding: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .terminal-body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(0,246,255,.06), transparent 65%);
+      pointer-events: none;
+    }
+
+    .terminal-output {
+      position: relative;
+      z-index: 1;
+      color: var(--green);
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      line-height: 1.1;
+      white-space: pre-line;
+      min-height: 260px;
+    }
+
+    .terminal-prompt {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .terminal-prompt span {
+      color: var(--yellow);
+      font-size: .55rem;
+    }
+
+    .terminal-prompt button {
+      margin-left: auto;
+      border: 2px solid rgba(65,255,109,.24);
+      background: rgba(255,255,255,.04);
+      color: var(--green);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: .44rem;
+      cursor: pointer;
+    }
+
+    .coming-soon {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        linear-gradient(180deg, rgba(255,79,216,.06), rgba(0,246,255,.03)),
+        rgba(0,0,0,.24);
+      border-radius: 26px;
+      border: 2px dashed rgba(255,228,94,.38);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coming-soon::before {
+      content: "RESEARCH DLC";
+      position: absolute;
+      top: 22px;
+      right: -34px;
+      transform: rotate(26deg);
+      background: var(--yellow);
+      color: var(--bg);
+      padding: 12px 48px;
+      font-size: .55rem;
+      box-shadow: 0 0 18px rgba(255,228,94,.24);
+    }
+
+    .coming-soon h4 {
+      font-size: .86rem;
+      line-height: 1.6;
+      color: #fff7cc;
+      margin-bottom: 16px;
+    }
+
+    .coming-soon-text {
+      font-size: 1.65rem;
+      color: #f5efff;
+      line-height: 1.12;
+      max-width: 420px;
+      margin: 0 auto 14px;
+    }
+
+    .fun-grid .panel-card,
+    .research-grid .panel-card,
+    .contact-grid .panel-card {
+      min-height: 100%;
+    }
+
+    .mini-grid .mini-card {
+      min-height: 170px;
+    }
+
+    .fun-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: var(--yellow);
+      font-size: .52rem;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,228,94,.16);
+      background: rgba(255,255,255,.04);
+    }
+
+    .juke-box {
+      display: grid;
+      gap: 14px;
+    }
+
+    .track {
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.04);
+      border: 2px solid rgba(255,255,255,.08);
+    }
+
+    .track-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .track-top strong {
+      color: var(--cyan);
+      font-size: .54rem;
+      line-height: 1.5;
+    }
+
+    .track-top span {
+      color: var(--muted);
+      font-size: .46rem;
+    }
+
+    .track p {
+      font-size: 1.35rem;
+      line-height: 1.1;
+      color: #f4eeff;
+    }
+
+    .contact-card p,
+    .mini-card p,
+    .edu-card p,
+    .project-card p {
+      font-size: 1.42rem;
+      line-height: 1.12;
+      color: #f4eeff;
+      margin-top: 10px;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .social-link {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      text-decoration: none;
+      color: var(--cyan);
+      border: 2px solid rgba(0,246,255,.22);
+      background: rgba(255,255,255,.03);
+      font-size: 1.1rem;
+      transition: .2s ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-4px);
+      color: var(--pink);
+      box-shadow: 0 0 18px rgba(255,79,216,.16);
+    }
+
+    footer {
+      margin-top: 26px;
+      text-align: center;
+      padding: 28px 14px 20px;
+    }
+
+    .footer-copy {
+      font-size: 1.3rem;
+      color: #e8ddff;
+      line-height: 1.15;
+    }
+
+    .achievement {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: min(360px, calc(100% - 36px));
+      z-index: 120;
+      transform: translateY(150%);
+      transition: transform .45s ease;
+      pointer-events: none;
+    }
+
+    .achievement.show {
+      transform: translateY(0);
+    }
+
+    .achievement-card {
+      background: rgba(6, 4, 12, .95);
+      border: 2px solid rgba(255,228,94,.4);
+      border-radius: 22px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 14px;
+      box-shadow: 0 0 24px rgba(255,228,94,.16);
+    }
+
+    .achievement-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,228,94,.22), rgba(255,79,216,.12));
+      border: 2px solid rgba(255,228,94,.35);
+      display: grid;
+      place-items: center;
+      color: var(--yellow);
+      font-size: 1.35rem;
+    }
+
+    .achievement-copy small {
+      display: block;
+      font-size: .42rem;
+      color: var(--yellow);
+      margin-bottom: 8px;
+    }
+
+    .achievement-copy strong {
+      display: block;
+      color: white;
+      font-size: .6rem;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .achievement-copy p {
+      font-family: 'VT323', monospace;
+      font-size: 1.3rem;
+      line-height: 1.08;
+      color: #f1ebff;
+    }
+
+    .glitch {
+      animation: glitch .45s linear;
+    }
+
+    @keyframes glitch {
+      0% { transform: translate(0); filter: hue-rotate(0deg); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-2px, 0); }
+      80% { transform: translate(2px, 1px); }
+      100% { transform: translate(0); filter: hue-rotate(18deg); }
+    }
+
+    @media (max-width: 1080px) {
+      .hero,
+      .about-grid,
+      .research-grid,
+      .fun-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .topbar {
+        height: auto;
+        border-radius: 24px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .nav-toggle { display: inline-grid; place-items: center; }
+
+      nav {
+        width: 100%;
+        display: none;
+      }
+
+      nav.open { display: block; }
+
+      nav ul {
+        justify-content: flex-start;
+      }
+
+      .stats,
+      .edu-grid,
+      .projects-grid,
+      .mini-grid,
+      .contact-grid-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(var(--max), calc(100% - 18px));
+      }
+
+      .topbar {
+        padding: 14px;
+      }
+
+      .brand-badge {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+      }
+
+      .hero {
+        border-radius: 24px;
+        padding: 22px 18px;
+      }
+
+      .section-shell,
+      .timeline-item,
+      .edu-card,
+      .project-card,
+      .panel-card,
+      .mini-card,
+      .contact-card {
+        border-radius: 20px;
+      }
+
+      .timeline::before {
+        left: 11px;
+      }
+
+      .timeline-item {
+        margin-left: 34px;
+        padding: 18px 16px;
+      }
+
+      .timeline-item::before {
+        left: -29px;
+      }
+
+      .section p,
+      .coming-soon-text,
+      .timeline-copy,
+      .card-copy,
+      .contact-card p,
+      .mini-card p,
+      .edu-card p,
+      .project-card p,
+      .track p,
+      .footer-copy,
+      .achievement-copy p {
+        font-size: 1.28rem;
+      }
+
+      .timeline-list li,
+      .fun-list li,
+      .terminal-output {
+        font-size: 1.2rem;
+      }
+
+      .cabinet {
+        width: min(340px, 100%);
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="stars"></div>
 
-  <header>
-    <h1>READY TO KHANH-QUER CHALLENGES</h1>
-    <div class="social-links">
-      <a href="https://github.com/twok-teks" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="mailto:vnqkhanh02@gmail.com"><i class="fas fa-envelope"></i></a>
-      <a href="https://www.linkedin.com/in/vnqkhanh/" target="_blank"><i class="fab fa-linkedin"></i></a>
+  <div class="boot-overlay" id="bootOverlay">
+    <div class="boot-box">
+      <h1>TWOK-TEKS ARCADE SYSTEM</h1>
+      <div class="boot-line">&gt; POWERING CRT DISPLAY...</div>
+      <div class="boot-line">&gt; LOADING RETRO NAVIGATION ENGINE...</div>
+      <div class="boot-line">&gt; EQUIPPING PROJECTS, XP, AND SIDE QUESTS...</div>
+      <div class="boot-line">&gt; WELCOME, PLAYER.</div>
+      <div class="boot-line">&gt; PRESS START TO ENTER KHANH'S WORLD</div>
     </div>
-  </header>
+  </div>
 
-  <section id="about">
-    <h2>ABOUT ME</h2>
+  <div class="shell">
+    <header class="topbar" id="topbar">
+      <div class="brand">
+        <div class="brand-badge"><i class="fa-solid fa-gamepad"></i></div>
+        <div class="brand-copy">
+          <h1>READY TO KHANH-QUER CHALLENGES</h1>
+        </div>
+      </div>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Open navigation">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <nav id="siteNav">
+        <ul>
+          <li><a href="#home" class="nav-link active">HOME</a></li>
+          <li><a href="#about" class="nav-link">ABOUT</a></li>
+          <li><a href="#experience" class="nav-link">XP</a></li>
+          <li><a href="#projects" class="nav-link">PROJECTS</a></li>
+          <li><a href="#research" class="nav-link">RESEARCH</a></li>
+          <li><a href="#fun" class="nav-link">AFK</a></li>
+          <li><a href="#contact" class="nav-link">CONTACT</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero section" id="home">
+        <div class="hero-grid"></div>
+
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="dot"></span> PLAYER 1 READY</div>
+          <h2>WELCOME TO MY DOMAIN</h2>
+          <div class="tagline">Let’s get started.</div>
+          <p>
+            Howdy! I’m Khanh Van. I build dependable software, enjoy solving complex problems,
+            and I’m currently continuing my journey from UT Dallas into the M.S. in Computer Science program at UT Austin.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects"><i class="fa-solid fa-rocket"></i> ENTER PROJECTS</a>
+            <a class="btn btn-secondary" href="Khanh_Van_Resume.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines"></i> OPEN RESUME</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <small>CURRENT ARC</small>
+              <strong>State Farm</strong>
+              <span>Software Engineer</span>
+            </div>
+            <div class="stat">
+              <small>NEXT EXPANSION</small>
+              <strong>Research Mode</strong>
+              <span>UT Austin M.S. CS and future AI/ML research goals</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cabinet" aria-hidden="true">
+          <div class="cabinet-body"></div>
+          <div class="cabinet-marquee">TWOK-TEKS // PLAYER PROFILE</div>
+          <div class="cabinet-screen">
+            <div class="screen-text">
+              <span class="highlight">MISSION:</span> BUILD COOL STUFF<br>
+              <span class="cyan">CLASS:</span> SWE / CREATIVE CODER<br><br>
+              <span class="highlight">ACTIVE QUESTS</span><br>
+              • scalable apps<br>
+              • elegant problem solving<br>
+              • future research<br><br>
+              <span class="cyan">STATUS:</span> READY TO SHIP
+            </div>
+          </div>
+          <div class="cabinet-controls">
+            <div class="joystick-box" style="display:flex;align-items:center;justify-content:center;">
+              <div style="
+                width:60px;
+                height:60px;
+                border-radius:50%;
+                background:linear-gradient(180deg,#ff7ce6,#ff2fbf);
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-family:'Press Start 2P',cursive;
+                font-size:10px;
+                color:white;
+                box-shadow:0 0 15px rgba(255,79,216,.6);
+              ">GO</div>
+            </div>
+            <div class="buttons-box">
+              <div class="btns">
+                <div class="arcade-btn"></div>
+                <div class="arcade-btn"></div>
+                <div class="arcade-btn"></div>
+                <div class="arcade-btn"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="section-shell">
+          <div class="section-title">
+            <h3>LEVEL 01 // ABOUT ME</h3>
+            <span>CHARACTER LORE</span>
+          </div>
+
+          <div class="about-grid">
+            <div class="panel-card">
+              <h4>ORIGIN STORY</h4>
+
+<div class="quest-log">
+
+  <div class="quest-entry">
+    <span class="quest-title">STARTING ZONE</span>
+    <p>Houston, Texas.</p>
+  </div>
+
+  <div class="quest-entry">
+    <span class="quest-title">LEVEL UP</span>
     <p>
-      Howdy! I’m a Houston native who studied in Austin and now continue my journey in Dallas. I’ve been all over places, made plenty of mistakes, and I’m grateful for all of it. I studied Computer Science at <a href="https://cs.utdallas.edu/" target="_blank">UT Dallas</a>. My career focus is to become a SWE that helps solve complex problems and algorithms, making efficient applications. My goal? Be a developer who keeps leveling up and helps others do the same! 🙌
+      Studied Computer Science at 
+      <a href="https://cs.utdallas.edu/" target="_blank">
+      The University of Texas at Dallas
+      </a>, where I built my foundation in algorithms, systems, and software engineering.
     </p>
-  </section>
+  </div>
 
-  <section id="technologies">
-    <h2>TECHNOLOGIES</h2>
-    <p> Java, Python, C/C++, JavaScript, Spring Boot, Flask, React.js, Node.js, MongoDB, PostgreSQL, Docker, AWS, Git/GitHub, Unix/Linux</p>
-  </section>
+  <div class="quest-entry">
+    <span class="quest-title">MAIN QUEST COMPLETE</span>
+    <p>Bachelor of Science in Computer Science.</p>
+  </div>
 
-  <section id="experience">
-    <h2>EXPERIENCES</h2>
-    
-    <div class="job">
-      <h3>Paycom | Irving, TX <span class="job-date">(June 2025 – Present)</span></h3>
-      <p><strong>Full-Stack Developer</strong></p>
-      <ul>
-        <li>Develop and maintain Scheduling module features, including Scheduling Archiving System, Exception Points Calculations, and Schedule Employee Interface.</li>
-        <li>Collaborate with other Developers, Software QAs, and DevOps teams to enhance product functionality and ensure quality deliverables.</li>
-        <li>Integrate development code with CI/CD pipelines (e.g., GitLab) to streamline deployment and ensure consistent delivery.</li>
-      </ul>
-    </div>
-  
-    <br>
+  <div class="quest-entry">
+    <span class="quest-title">NEXT QUEST UNLOCKED</span>
+    <p>
+      I’m now returning to continue my unfinished mission — pursuing my
+      <strong>M.S. in Computer Science</strong> at 
+      <a href="https://cdso.utexas.edu/mscs" target="_blank">
+      The University of Texas at Austin
+      </a>.
+    </p>
+  </div>
 
-    <div class="job">
-      <h3>QHung Management | Richardson, TX <span class="job-date">(Oct 2024 – June 2025)</span></h3>
-      <p><strong>Full-Stack Developer</strong></p>
-      <ul>
-        <li>Designed and developed a responsive company website with a tenant portal, rent payment processing, and MLS IDX integration.</li>
-        <li>Built and deployed on AWS using Java, Spring Boot, and PostgreSQL</li>
-        <li>Streamlined tenant communication and data management processes, improving operational efficiency.</li>
-        <li>Maintained and updated applications and lease records, ensuring data accuracy and compliance.</li>
-      </ul>
-    </div>
-  
-    <br>
-  
-    <div class="job">
-      <h3>Computer Science Mentor Center (UT Dallas) | Richardson, TX <span class="job-date">(Jan 2024 – Present)</span></h3>
-      <p><strong>Mentor / Tutor</strong></p>
-      <ul>
-        <li>Tutor students in C++, Java, Data Structures, and Algorithms. Assist with homework, projects, and exam prep.</li>
-        <li>Support understanding of complex Discrete Mathematics and Computer Architecture topics.</li>
-        <li>Guide students to improve problem-solving, coding techniques, and theoretical understanding.</li>
-      </ul>
-    </div>
-  
-    <br>
-  
-    <div class="job">
-      <h3>Alkami Technology | Plano, TX <span class="job-date">(Jun 2024 – Sep 2024)</span></h3>
-      <p><strong>Software Engineer Intern</strong></p>
-      <ul>
-        <li>Designed a rule-based and ML-augmented backend service in Java to flag potentially fraudulent transactions in real time based on user behavior patterns and transaction anomalies.</li>
-        <li>Integrated detection logic with PostgreSQL and exposed secure RESTful APIs for downstream alerting and review workflows.</li>
-        <li>Deployed containerized services on AWS using Docker and supported CI/CD automation with GitHub Actions.</li>
-      </ul>
-    </div>
+  <div class="quest-entry">
+    <span class="quest-title">OBJECTIVE</span>
+    <p>
+      Continue leveling up as a software engineer, build meaningful systems,
+      and eventually contribute to research in AI and machine learning.
+    </p>
+  </div>
 
-    <br>
-  
-    <div class="job">
-      <h3>Royal Dutch Shell | Houston, TX <span class="job-date">(Jul 2019 – Aug 2020)</span></h3>
-      <p><strong>Retail IT Intern</strong></p>
-      <ul>
-        <li>Helped develop the "Arrived At The Station" feature in the Shell US & Canada app using Google Maps API and geofencing.</li>
-        <li>Collaborated with backend team to build RESTful APIs enabling real-time app-server communication.</li>
-        <li>Performed testing/debugging, reducing deployment delays by 12%.</li>
-      </ul>
-    </div>
-  </section>
+</div>
+              
+              <div class="tech-cloud">
+                <span class="pill">Java</span>
+                <span class="pill">Python</span>
+                <span class="pill">C/C++</span>
+                <span class="pill">JavaScript</span>
+                <span class="pill">Spring Boot</span>
+                <span class="pill">Flask</span>
+                <span class="pill">React</span>
+                <span class="pill">Docker</span>
+                <span class="pill">AWS</span>
+                <span class="pill">PostgreSQL</span>
+                <span class="pill">MongoDB</span>
+                <span class="pill">Unix/Linux</span>
+              </div>
+            </div>
 
-  <section id="projects">
-    <h2>PROJECTS</h2>
-  
-    <div class="project">
-      <h3>
-        <a href="http://feature-webapp.emerginary.com/" target="_blank">BotStonkWar</a>
-        <a href="https://github.com/twok-teks" target="_blank" class="gh-icon" aria-label="GitHub Repository">
-          <i class="fab fa-github"></i>
-        </a>
-        <span class="proj-date">Apr 2025</span>
-      </h3>
-      <p>Built a trading agent that suggests trades using real-time sentiment analysis from scraped financial news and numerical trading algorithms.</p>
-      <p>Designed modular strategies (e.g., short-term volatility, sentiment consensus) deployed via Docker and Kubernetes in a microservices architecture.</p>
-    </div>
-  
-    <br>
+            <div class="panel-card">
+              <h4>SKILL TREE</h4>
+              <div class="xp-board">
+                <div class="xp">
+                  <div class="xp-label"><span>Problem Solving</span><span>95 XP</span></div>
+                  <div class="xp-track"><div class="xp-fill" style="width:95%"></div></div>
+                </div>
+                <div class="xp">
+                  <div class="xp-label"><span>Backend Systems</span><span>90 XP</span></div>
+                  <div class="xp-track"><div class="xp-fill" style="width:90%"></div></div>
+                </div>
+                <div class="xp">
+                  <div class="xp-label"><span>Cloud + CI/CD</span><span>82 XP</span></div>
+                  <div class="xp-track"><div class="xp-fill" style="width:82%"></div></div>
+                </div>
+                <div class="xp">
+                  <div class="xp-label"><span>AI/ML Exploration</span><span>76 XP</span></div>
+                  <div class="xp-track"><div class="xp-fill" style="width:76%"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <div class="project">
-      <h3>
-        <a href="http://fallfrenzy.online/" target="_blank">Annual Fall Foliage ML Model</a>
-        <a href="https://github.com/twok-teks/Fall_Foliage_ML_Model" target="_blank" class="gh-icon" aria-label="GitHub Repository">
-          <i class="fab fa-github"></i>
-        </a>
-        <span class="proj-date">Jan 2025</span>
-      </h3>
-      <p>AI/ML model predicting fall foliage peak times based on weather trends and past data.</p>
-      <p>Technologies: Python, Scikit-Learn, Pandas, Matplotlib, Flask, Excel</p>
-    </div>
-  
-    <br>
-  
-    <div class="project">
-      <h3>
-        <a href="http://ingredience.site/" target="_blank">Ingredience App</a>
-        <a href="https://github.com/twok-teks/Ingredience" target="_blank" class="gh-icon" aria-label="GitHub Repository">
-          <i class="fab fa-github"></i>
-        </a>
-        <span class="proj-date">Aug 2024</span>
-      </h3>
-      <p>Smart kitchen assistant that tracks pantry items, suggests recipes, and generates shopping lists based on inventory.</p>
-      <p>Technologies: JavaScript, NodeJS, React, MongoDB</p>
-    </div>
-  
-    <br>
-  
-    <div class="project">
-      <h3>
-        <a href="https://dbviewer.emerginary.com/" target="_blank">Company Database Project</a>
-        <a href="https://github.com/twok-teks/Comany-Database-Project" target="_blank" class="gh-icon" aria-label="GitHub Repository">
-          <i class="fab fa-github"></i>
-        </a>
-        <span class="proj-date">Feb 2024</span>
-      </h3>
-      <p>Database system that manages company operations and delivers insights through structured queries and data views.</p>
-      <p>Technologies: Python, Flask, MySQL</p>
-    </div>
-  
-    <p class="resume-link">See more in my <a href="Khanh_Van_Resume.pdf" target="_blank">RESUME</a> ✨</p>
-  </section>
+      <section class="section" id="experience">
+        <div class="section-shell">
+          <div class="section-title">
+            <h3>LEVEL 02 // PROFESSIONAL EXPERIENCE + EDUCATION</h3>
+            <span>CAREER XP LOG</span>
+          </div>
 
-  <section id="fun">
-    <h2>"AFK" LIFE</h2>
-    <p>HOBBIES:</p>
-    <li>Spending time outdoors, hiking and camping 🍃</li>
-    <li>Travel around U.S. with my family | 16 downs, 36 to go 🗺️</li>
-    <li>I find peace in cleaning (yes, really)</li>
-    <li>Diving deep into random YouTube rabbit hole</li>
-    <br>
-    <p>GAMES🎮:</p>
-    <li>All-Time Favorite: <strong>Red Dead Redemption 2</strong> – Everyone must try it out!</li>
-    <li>Currently Into: <strong>Black Myth: Wukong</strong></li>
-  </section>
+          <div class="timeline">
+            
+            <article class="timeline-item">
+              <div class="timeline-top">
+                <h4>State Farm</h4>
+                <div class="timeline-meta">Richardson, TX<br>Mar 2026 – Present</div>
+              </div>
+              <div class="timeline-role">Software Engineer</div>
+              <p class="timeline-copy">Building and maintaining enterprise software within the Property, Casualty, Auto and Fire engineering organization, focused on reliable systems and long-term modernization work.</p>
+              <ul class="timeline-list">
+                <li>Develop and support software solutions for large-scale enterprise platforms.</li>
+                <li>Contribute to modernization efforts that improve maintainability, scalability, and engineering efficiency.</li>
+                <li>Collaborate with cross-functional teams to deliver dependable production-ready systems.</li>
+              </ul>
+            </article>
 
-  <section id="goals">
-    <h2>MY MISSION</h2>
-    <p>My ultimate goal is to be a reliable and dependable person in any team. I want to be someone others can count on — whether it’s new hires or anyone who's dealing with technical problems or mental stress. I strive to keep learning and growing so I can always be of help!🌟</p>
-  </section>
+<article class="timeline-item">
+              <div class="timeline-top">
+                <h4>Paycom</h4>
+                <div class="timeline-meta">Irving, TX<br>June 2025 – Mar 2026</div>
+              </div>
+              <div class="timeline-role">Software Developer II</div>
+              <p class="timeline-copy">Working on scheduling-focused systems and production features that need to be dependable, maintainable, and easy to evolve.</p>
+              <ul class="timeline-list">
+                <li>Develop and maintain Scheduling module features including archiving systems, exception point calculations, and employee-facing interfaces.</li>
+                <li>Collaborate across development, QA, and DevOps teams to improve delivery quality.</li>
+                <li>Integrate code into CI/CD workflows to support smooth deployments and consistent releases.</li>
+              </ul>
+            </article>
 
-  <footer>
-    <p>&copy; 2025 Khanh Van. Worry Not! I'm happy to be an inspiration for anybody!✨</p>
-  </footer>
+            <article class="timeline-item">
+              <div class="timeline-top">
+                <h4>QHung Management</h4>
+                <div class="timeline-meta">Richardson, TX<br>Oct 2024 – June 2025</div>
+              </div>
+              <div class="timeline-role">Full-Stack Developer</div>
+              <p class="timeline-copy">Built practical systems that helped real users manage leasing, communication, and day-to-day property workflows.</p>
+              <ul class="timeline-list">
+                <li>Designed and developed a responsive company website with tenant portal, rent payment support, and MLS IDX integration.</li>
+                <li>Built and deployed on AWS using Java, Spring Boot, and PostgreSQL.</li>
+                <li>Improved communication workflows and data management for smoother operations.</li>
+              </ul>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-top">
+                <h4>Computer Science Mentor Center • UT Dallas</h4>
+                <div class="timeline-meta">Richardson, TX<br>Jan 2024 – Present</div>
+              </div>
+              <div class="timeline-role">Mentor / Tutor</div>
+              <p class="timeline-copy">Helping students get unstuck, understand core concepts, and gain confidence in problem solving.</p>
+              <ul class="timeline-list">
+                <li>Tutor students in C++, Java, data structures, and algorithms.</li>
+                <li>Support discrete mathematics and computer architecture learning.</li>
+                <li>Guide students toward stronger coding habits and clearer thinking.</li>
+              </ul>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-top">
+                <h4>Alkami Technology</h4>
+                <div class="timeline-meta">Plano, TX<br>Jun 2024 – Sep 2024</div>
+              </div>
+              <div class="timeline-role">Software Engineer Intern</div>
+              <p class="timeline-copy">Explored fraud-focused backend engineering and production-ready service design.</p>
+              <ul class="timeline-list">
+                <li>Designed a Java backend service to flag suspicious transactions using rule-based and ML-augmented logic.</li>
+                <li>Integrated secure RESTful APIs with PostgreSQL for downstream workflows.</li>
+                <li>Deployed containerized services on AWS with Docker and supported CI/CD automation.</li>
+              </ul>
+            </article>
+
+            <article class="timeline-item">
+              <div class="timeline-top">
+                <h4>Royal Dutch Shell</h4>
+                <div class="timeline-meta">Houston, TX<br>Jul 2019 – Aug 2020</div>
+              </div>
+              <div class="timeline-role">Retail IT Intern</div>
+              <p class="timeline-copy">One of my earlier real-world engineering experiences where app behavior met location-based features.</p>
+              <ul class="timeline-list">
+                <li>Helped develop the “Arrived At The Station” feature using Google Maps API and geofencing.</li>
+                <li>Worked with backend APIs for real-time app communication.</li>
+                <li>Contributed testing and debugging work that reduced deployment delays.</li>
+              </ul>
+            </article>
+          </div>
+
+          <div style="height:20px"></div>
+
+          <div class="edu-grid">
+            <article class="edu-card">
+              <h4>Education</h4>
+              <ul class="edu-list">
+
+  <li>
+    <strong>Master of Science in Computer Science</strong><br>
+    The University of Texas at Austin
+    <div class="edu-date">Jan 2026 – May 2027</div>
+  </li>
+
+  <li>
+    <strong>Bachelor of Science in Computer Science</strong><br>
+    The University of Texas at Dallas
+    <div class="edu-date">Aug 2023 – May 2025</div>
+  </li>
+
+</ul>
+              <span class="tag">ACADEMIC BUILD MODE</span>
+            </article>
+
+            <article class="edu-card">
+              <h4>Resume Access</h4>
+              <span class="tag"><a href="Khanh_Van_Resume.pdf" target="_blank" rel="noopener">OPEN RESUME PDF</a></span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="section-shell">
+          <div class="section-title">
+            <h3>LEVEL 03 // PROJECTS</h3>
+            <span>SELECT A BUILD</span>
+          </div>
+
+          <div class="project-toolbar">
+            <button class="filter-btn active" data-filter="all">ALL</button>
+            <button class="filter-btn" data-filter="ai">AI / ML</button>
+            <button class="filter-btn" data-filter="fullstack">FULL STACK</button>
+            <button class="filter-btn" data-filter="backend">BACKEND / DATA</button>
+          </div>
+
+          <div class="projects-grid" id="projectsGrid">
+            <article class="project-card" data-category="ai fullstack">
+              <h4>BotStonkWar</h4>
+              <p>Trading agent concept that combines real-time sentiment analysis from financial news with algorithmic strategies and modular decision-making.</p>
+              <span class="tag">AI + MICROSERVICES</span>
+              <div class="project-links">
+                <a class="project-link" href="http://feature-webapp.emerginary.com/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Live</a>
+                <a class="project-link" href="https://github.com/twok-teks" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="ai backend">
+              <h4>Annual Fall Foliage ML Model</h4>
+              <p>Machine learning project that predicts foliage peak timing from historical patterns and weather-driven features.</p>
+              <span class="tag">PYTHON • SCIKIT-LEARN • FLASK</span>
+              <div class="project-links">
+                <a class="project-link" href="http://fallfrenzy.online/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Live</a>
+                <a class="project-link" href="https://github.com/twok-teks/Fall_Foliage_ML_Model" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="fullstack">
+              <h4>Ingredience</h4>
+              <p>Smart kitchen assistant for tracking pantry items, generating recipe ideas, and creating shopping lists based on real inventory.</p>
+              <span class="tag">REACT • NODE • MONGODB</span>
+              <div class="project-links">
+                <a class="project-link" href="http://ingredience.site/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Live</a>
+                <a class="project-link" href="https://github.com/twok-teks/Ingredience" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="backend fullstack">
+              <h4>Company Database Project</h4>
+              <p>Database-driven application for company operations with structured queries, user-facing views, and cleaner access to core business data.</p>
+              <span class="tag">FLASK • MYSQL</span>
+              <div class="project-links">
+                <a class="project-link" href="https://dbviewer.emerginary.com/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Live</a>
+                <a class="project-link" href="https://github.com/twok-teks/Comany-Database-Project" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="research">
+        <div class="section-shell">
+          <div class="section-title">
+            <h3>LEVEL 04 // RESEARCH</h3>
+            <span>COMING SOON</span>
+          </div>
+
+          <div class="research-grid">
+            <div class="panel-card terminal-card">
+              <h4>FUTURE RESEARCH CONSOLE</h4>
+              <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+              </div>
+              <div class="terminal-body">
+                <div class="terminal-output" id="terminalOutput"></div>
+                <div class="terminal-prompt">
+                  <span>$ ./launch_research_mode</span>
+                  <button id="rerunTerminal">RERUN</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="coming-soon">
+              <div>
+                <h4>MASTER'S RESEARCH PATH LOADING</h4>
+                <p class="coming-soon-text">
+                  This page is intentionally marked as upcoming. Research is the next expansion pack,
+                  and this section can later grow into papers, experiments, reading logs, ideas, and ongoing work.
+                </p>
+                <span class="tag">PLACEHOLDER FOR FUTURE PUBLICATIONS + LAB NOTES</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="fun">
+        <div class="section-shell">
+          <div class="section-title">
+            <h3>BONUS STAGE // "AFK" LIFE</h3>
+            <span>SIDE QUESTS</span>
+          </div>
+
+          <div class="fun-grid">
+            <div class="panel-card">
+              <div class="fun-badge"><i class="fa-solid fa-heart"></i> LIFE OUTSIDE THE TERMINAL</div>
+              <ul class="fun-list">
+                <li>Spending time outdoors, hiking, and camping.</li>
+                <li>Traveling around the U.S. with family and collecting memories like game trophies.</li>
+                <li>Finding weirdly satisfying peace in cleaning and organizing.</li>
+                <li>Going deep into random YouTube rabbit holes for fun.</li>
+              </ul>
+
+              <div style="height:18px"></div>
+
+              <div class="mini-grid">
+                <article class="mini-card">
+                  <h4>ALL-TIME FAVORITE</h4>
+                  <p>Red Dead Redemption 2 is the kind of game that feels like a world, not just a game.</p>
+                  <span class="tag">LEGENDARY TIER</span>
+                </article>
+                <article class="mini-card">
+                  <h4>CURRENTLY INTO</h4>
+                  <p>Clair Obscur: Expedition 33 is in the current rotation.</p>
+                  <span class="tag">ACTIVE PLAYLIST</span>
+                </article>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <h4>RETRO JUKEBOX</h4>
+              <div class="juke-box">
+                <article class="track">
+                  <div class="track-top"><strong>TRACK 01 // MISSION</strong><span>reliable teammate mode</span></div>
+                  <p>Be someone people can count on, especially when problems get complex.</p>
+                </article>
+                <article class="track">
+                  <div class="track-top"><strong>TRACK 02 // ENERGY</strong><span>growth mode</span></div>
+                  <p>Keep learning, keep building, and keep showing up better than yesterday.</p>
+                </article>
+                <article class="track">
+                  <div class="track-top"><strong>TRACK 03 // VIBE</strong><span>retro but modern</span></div>
+                  <p>A mix of arcade nostalgia, curiosity, and real-world engineering discipline.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="section-shell">
+          <div class="section-title">
+            <h3>FINAL STAGE // CONTACT + LINKS</h3>
+            <span>CONTINUE?</span>
+          </div>
+
+          <div class="contact-grid">
+            <div class="panel-card">
+              <h4>LET'S CONNECT</h4>
+              <p>
+                Thanks for playing through the portfolio. Whether you’re here for engineering work,
+                collaboration, research conversations, or just to see what I’m building next, I’d love to connect.
+              </p>
+
+              <div class="contact-actions">
+                <a class="btn btn-primary" href="mailto:vnqkhanh02@gmail.com"><i class="fa-solid fa-envelope"></i> EMAIL ME</a>
+                <a class="btn btn-secondary" href="Khanh_Van_Resume.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file"></i> RESUME</a>
+              </div>
+
+              <div style="height:20px;"></div>
+              
+              <div class="social-row">
+                <a class="social-link" href="https://github.com/twok-teks" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a class="social-link" href="mailto:vnqkhanh02@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a class="social-link" href="https://www.linkedin.com/in/vnqkhanh/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+              </div>
+            </div>
+
+            <div class="contact-grid-inner">
+              <article class="contact-card">
+                <h4>PERSONAL SITE</h4>
+                <p>Use this redesign as the new visual direction for twok-teks.</p>
+                <span class="tag"><a href="https://twok-teks.space/" target="_blank" rel="noopener">twok-teks.space</a></span>
+              </article>
+              <article class="contact-card">
+                <h4>GITHUB</h4>
+                <p>Projects, experiments, and whatever side quest gets built next.</p>
+                <span class="tag"><a href="https://github.com/twok-teks" target="_blank" rel="noopener">@twok-teks</a></span>
+              </article>
+              <article class="contact-card">
+                <h4>LINKEDIN</h4>
+                <p>Professional updates, experience highlights, and career journey milestones.</p>
+                <span class="tag"><a href="https://www.linkedin.com/in/vnqkhanh/" target="_blank" rel="noopener">linkedin.com/in/vnqkhanh</a></span>
+              </article>
+              <article class="contact-card">
+                <h4>EMAIL</h4>
+                <p>For opportunities, collaborations, or just a quick hello.</p>
+                <span class="tag"><a href="mailto:vnqkhanh02@gmail.com">vnqkhanh02@gmail.com</a></span>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p class="footer-copy">© 2026 Khanh Van • Worry not. I’m happy to be an inspiration for anybody. ✨</p>
+    </footer>
+  </div>
+
+  <div class="achievement" id="achievement">
+    <div class="achievement-card">
+      <div class="achievement-icon"><i class="fa-solid fa-trophy"></i></div>
+      <div class="achievement-copy">
+        <small>ACHIEVEMENT UNLOCKED</small>
+        <strong id="achievementTitle">New Zone Entered</strong>
+        <p id="achievementText">Welcome to the next level.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const bootOverlay = document.getElementById('bootOverlay');
+    window.addEventListener('load', () => {
+      setTimeout(() => bootOverlay.classList.add('hidden'), 2200);
+      runTerminal();
+    });
+
+    const navToggle = document.getElementById('navToggle');
+    const siteNav = document.getElementById('siteNav');
+    navToggle.addEventListener('click', () => siteNav.classList.toggle('open'));
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        siteNav.classList.remove('open');
+        glitchScreen();
+      });
+    });
+
+    function glitchScreen() {
+      document.body.classList.add('glitch');
+      setTimeout(() => document.body.classList.remove('glitch'), 420);
+    }
+
+    const sections = document.querySelectorAll('main .section');
+    const achievement = document.getElementById('achievement');
+    const achievementTitle = document.getElementById('achievementTitle');
+    const achievementText = document.getElementById('achievementText');
+    const shownAchievements = new Set();
+
+    const achievementMap = {
+      home: ['Player 1 Spawned', 'Portfolio loaded successfully.'],
+      about: ['Lore Unlocked', 'Character backstory discovered.'],
+      experience: ['XP Log Opened', 'Professional timeline revealed.'],
+      projects: ['Build Archive Found', 'Project cartridges selected.'],
+      research: ['Future DLC Detected', 'Research mode is preparing to launch.'],
+      fun: ['AFK Zone Reached', 'Side quests and favorites discovered.'],
+      contact: ['Final Stage Cleared', 'Connection options unlocked.']
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${id}`));
+          if (!shownAchievements.has(id) && achievementMap[id]) {
+            shownAchievements.add(id);
+            showAchievement(achievementMap[id][0], achievementMap[id][1]);
+          }
+        }
+      });
+    }, { threshold: 0.45 });
+
+    sections.forEach(section => observer.observe(section));
+
+    let achievementTimer;
+    function showAchievement(title, text) {
+      achievementTitle.textContent = title;
+      achievementText.textContent = text;
+      achievement.classList.add('show');
+      clearTimeout(achievementTimer);
+      achievementTimer = setTimeout(() => achievement.classList.remove('show'), 2800);
+    }
+
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.dataset.filter;
+        projectCards.forEach(card => {
+          const categories = card.dataset.category;
+          const match = filter === 'all' || categories.includes(filter);
+          card.style.display = match ? 'block' : 'none';
+        });
+        showAchievement('Filter Switched', `${button.textContent} projects loaded.`);
+      });
+    });
+
+    const terminalOutput = document.getElementById('terminalOutput');
+    const rerunTerminal = document.getElementById('rerunTerminal');
+
+    const terminalLines = [
+      '> initializing master\'s research route...',
+      '> collecting curiosity, discipline, and big ideas...',
+      '> possible topics: AI/ML, intelligent systems, deeper applied research...',
+      '> status: upcoming but definitely loading...',
+      '> note: this panel is meant to grow with future papers, experiments, and writeups.'
+    ];
+
+    async function runTerminal() {
+      terminalOutput.textContent = '';
+      for (const line of terminalLines) {
+        await typeLine(line);
+        terminalOutput.textContent += '\n';
+      }
+    }
+
+    function typeLine(line) {
+      return new Promise(resolve => {
+        let i = 0;
+        const tick = setInterval(() => {
+          terminalOutput.textContent += line.charAt(i);
+          i++;
+          if (i >= line.length) {
+            clearInterval(tick);
+            resolve();
+          }
+        }, 18);
+      });
+    }
+
+    rerunTerminal.addEventListener('click', () => {
+      runTerminal();
+      showAchievement('Console Restarted', 'Research terminal replayed.');
+    });
+  </script>
 </body>
 </html>
