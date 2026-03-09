@@ -387,7 +387,9 @@
     }
 
     @keyframes blink {
-      0%, 100% {
+
+      0%,
+      100% {
         opacity: 1;
       }
 
@@ -504,14 +506,16 @@
       position: relative;
       justify-self: center;
       align-self: center;
-      width: min(390px, 100%);
-      aspect-ratio: 1 / 1;
+      width: min(420px, 100%);
+      aspect-ratio: 0.82 / 1.12;
       filter: drop-shadow(0 18px 36px rgba(0, 0, 0, .45));
       animation: floaty 4.2s ease-in-out infinite;
     }
 
     @keyframes floaty {
-      0%, 100% {
+
+      0%,
+      100% {
         transform: translateY(0px);
       }
 
@@ -550,10 +554,10 @@
 
     .cabinet-screen {
       position: absolute;
-      top: 23%;
+      top: 20%;
       left: 11%;
       right: 11%;
-      height: 37%;
+      height: 45%;
       background:
         linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, 0)),
         radial-gradient(circle at center, rgba(0, 246, 255, .1), transparent 60%),
@@ -578,10 +582,11 @@
       position: relative;
       z-index: 1;
       font-family: 'VT323', monospace;
-      font-size: clamp(1.1rem, 2.1vw, 1.55rem);
-      line-height: 1.15;
+      font-size: clamp(0.95rem, 1.7vw, 1.25rem);
+      line-height: 1.08;
       color: var(--green);
       text-shadow: 0 0 8px rgba(65, 255, 109, .2);
+      min-height: 100%;
     }
 
     .screen-text .highlight {
@@ -594,38 +599,88 @@
 
     .cabinet-controls {
       position: absolute;
-      left: 11%;
-      right: 11%;
-      top: 65%;
-      bottom: 10%;
+      left: 10%;
+      right: 10%;
+      top: 72%;
+      bottom: 8%;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
-      align-items: center;
+      align-items: stretch;
     }
 
     .joystick-box,
     .buttons-box {
       height: 100%;
-      min-height: 122px;
+      min-height: 120px;
       border-radius: 20px;
       background: rgba(0, 0, 0, .32);
       border: 2px solid rgba(255, 255, 255, .12);
       position: relative;
       overflow: hidden;
+      padding: 8px;
     }
 
     .btns {
       position: absolute;
       inset: 14px;
       display: grid;
-      grid-template-columns: 1fr;
-      max-width: 800px;
-      margin: auto;
-      gap: 12px;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
       place-items: center;
-      align-content: center;
-      justify-items: center;
+    }
+
+    .go-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #ff7ce6, #ff2fbf);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      color: white;
+      box-shadow: 0 0 15px rgba(255, 79, 216, .6);
+      border: none;
+      cursor: pointer;
+    }
+
+    .go-btn:active {
+      transform: scale(0.98);
+    }
+
+    .screen-line {
+      display: block;
+    }
+
+    .screen-gap {
+      height: 10px;
+    }
+
+    .screen-arrow {
+      color: var(--green);
+    }
+
+    .arcade-cursor {
+      display: inline-block;
+      width: 10px;
+      margin-left: 2px;
+      color: var(--green);
+      animation: blinkCursor .8s steps(1) infinite;
+    }
+
+    @keyframes blinkCursor {
+
+      0%,
+      49% {
+        opacity: 1;
+      }
+
+      50%,
+      100% {
+        opacity: 0;
+      }
     }
 
     .arcade-btn {
@@ -901,6 +956,10 @@
       background: var(--yellow);
       border: 3px solid rgba(0, 0, 0, .5);
       box-shadow: 0 0 16px rgba(255, 228, 94, .35);
+    }
+
+    .quest-lines {
+      margin-bottom: 12px;
     }
 
     .timeline-top {
@@ -1446,6 +1505,7 @@
     }
 
     @media (max-width: 1080px) {
+
       .hero,
       .about-grid,
       .research-grid,
@@ -1611,7 +1671,7 @@
         <div class="hero-copy">
           <div class="eyebrow"><span class="dot"></span> PLAYER 1 READY</div>
           <h2>WELCOME TO MY DOMAIN</h2>
-          <div class="tagline">Let’s get started.</div>
+          <div class="tagline">Let’s get started!</div>
           <p>
             Howdy! I’m Khanh Van. I build dependable software, enjoy solving complex problems,
             and I’m currently continuing my journey from UT Dallas into the M.S. in Computer Science program at UT
@@ -1637,40 +1697,18 @@
           </div>
         </div>
 
-        <div class="cabinet" aria-hidden="true">
+        <div class="cabinet">
           <div class="cabinet-body"></div>
-          <div class="cabinet-marquee">TWOK-TEKS // PLAYER PROFILE</div>
+          <div class="cabinet-marquee">TWOK-TEKS</div>
           <div class="cabinet-screen">
-            <div class="screen-text">
-              <span class="highlight">MISSION:</span> BUILD COOL STUFF<br>
-              <span class="cyan">CLASS:</span> SWE / CREATIVE CODER<br><br>
-              <span class="highlight">ACTIVE QUESTS</span><br>
-              • scalable apps<br>
-              • elegant problem solving<br>
-              • future research<br><br>
-              <span class="cyan">STATUS:</span> READY TO SHIP
-            </div>
+            <div class="screen-text" id="arcadeScreenText"></div>
           </div>
           <div class="cabinet-controls">
             <div class="joystick-box" style="display:flex;align-items:center;justify-content:center;">
-              <div style="
-                width:60px;
-                height:60px;
-                border-radius:50%;
-                background:linear-gradient(180deg,#ff7ce6,#ff2fbf);
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                font-family:'Press Start 2P',cursive;
-                font-size:10px;
-                color:white;
-                box-shadow:0 0 15px rgba(255,79,216,.6);
-              ">GO</div>
+              <button class="go-btn" id="replayArcade" type="button">GO</button>
             </div>
             <div class="buttons-box">
               <div class="btns">
-                <div class="arcade-btn"></div>
-                <div class="arcade-btn"></div>
                 <div class="arcade-btn"></div>
                 <div class="arcade-btn"></div>
               </div>
@@ -1692,12 +1730,12 @@
 
               <div class="quest-log">
                 <div class="quest-entry">
-                  <span class="quest-title">STARTING ZONE</span>
+                  <span class="quest-title">STARTING ZONE 📍</span>
                   <p>Houston, Texas.</p>
                 </div>
 
                 <div class="quest-entry">
-                  <span class="quest-title">LEVEL UP</span>
+                  <span class="quest-title">LEVEL UP ⭐</span>
                   <p>
                     Studied Computer Science at
                     <a href="https://cs.utdallas.edu/" target="_blank">
@@ -1707,12 +1745,12 @@
                 </div>
 
                 <div class="quest-entry">
-                  <span class="quest-title">MAIN QUEST COMPLETE</span>
-                  <p>Bachelor of Science in Computer Science.</p>
+                  <span class="quest-title">MAIN QUEST COMPLETE 📜</span>
+                  <p>Bachelor of Science in Computer Science</p>
                 </div>
 
                 <div class="quest-entry">
-                  <span class="quest-title">NEXT QUEST UNLOCKED</span>
+                  <span class="quest-title">NEXT QUEST UNLOCKED ❓</span>
                   <p>
                     I’m now returning to continue my unfinished mission — pursuing my
                     <strong>M.S. in Computer Science</strong> at
@@ -1723,10 +1761,10 @@
                 </div>
 
                 <div class="quest-entry">
-                  <span class="quest-title">OBJECTIVE</span>
+                  <span class="quest-title">OBJECTIVE❗</span>
                   <p>
                     Continue leveling up as a software engineer, build meaningful systems,
-                    and eventually contribute to research in AI and machine learning.
+                    and eventually contribute to research in AI/ML.
                   </p>
                 </div>
               </div>
@@ -1794,7 +1832,8 @@
                 <div class="timeline-meta">Richardson, TX<br>Mar 2026 – Present</div>
               </div>
               <div class="timeline-role">Software Engineer</div>
-              <p class="timeline-copy">Building and maintaining enterprise software within the PCAF engineering organization (Property, Casualty, Auto
+              <p class="timeline-copy">Building and maintaining enterprise software within the PCAF engineering
+                organization (Property, Casualty, Auto
                 and Fire), focused on reliable systems and long-term modernization work.</p>
               <ul class="timeline-list">
                 <li>Develop and support software solutions for large-scale enterprise platforms.</li>
@@ -1839,7 +1878,7 @@
             <article class="timeline-item">
               <div class="timeline-top">
                 <h4>Computer Science Mentor Center • UT Dallas</h4>
-                <div class="timeline-meta">Richardson, TX<br>Jan 2024 – Present</div>
+                <div class="timeline-meta">Richardson, TX<br>Jan 2024 – May 2025</div>
               </div>
               <div class="timeline-role">Mentor / Tutor</div>
               <p class="timeline-copy">Helping students get unstuck, understand core concepts, and gain confidence in
@@ -1902,11 +1941,6 @@
                 </li>
               </ul>
               <span class="tag">ACADEMIC BUILD MODE</span>
-            </article>
-
-            <article class="edu-card">
-              <h4>Resume Access</h4>
-              <span class="tag"><a href="Khanh_Van_Resume.pdf" target="_blank" rel="noopener">OPEN RESUME PDF</a></span>
             </article>
           </div>
         </div>
@@ -2169,13 +2203,31 @@
     const rerunTerminal = document.getElementById('rerunTerminal');
     const navbar = document.getElementById('topbar');
 
+    const arcadeScreenText = document.getElementById('arcadeScreenText');
+    const replayArcade = document.getElementById('replayArcade');
+
+    const arcadeLines = [
+      { html: '<span class="highlight">MISSION:</span> MAKE COOL THINGS' },
+      { html: '<span class="cyan">CLASS:</span> SOFTWARE ENGINEER' },
+      { gap: true },
+      { html: '<span class="highlight">ACTIVE QUESTS:</span>' },
+      { html: '<span class="screen-arrow">&gt;</span> scalable apps' },
+      { html: '<span class="screen-arrow">&gt;</span> elegant problem solving' },
+      { html: '<span class="screen-arrow">&gt;</span> future research' },
+      { gap: true },
+      { html: '<span class="cyan">STATUS:</span> READY TO SHIP' }
+    ];
+
     let lastScrollTop = 0;
     let achievementTimer;
+    let arcadeRunId = 0;
+    let cursorInterval;
     const shownAchievements = new Set();
 
     window.addEventListener('load', () => {
       setTimeout(() => bootOverlay.classList.add('hidden'), 2200);
       runTerminal();
+      runArcadeScreen();
     });
 
     window.addEventListener('scroll', () => {
@@ -2197,6 +2249,11 @@
         siteNav.classList.remove('open');
         glitchScreen();
       });
+    });
+
+    replayArcade.addEventListener('click', () => {
+      arcadeScreenText.innerHTML = '';
+      runArcadeScreen();
     });
 
     function glitchScreen() {
@@ -2279,6 +2336,135 @@
           }
         }, 18);
       });
+    }
+
+    async function runArcadeScreen() {
+      const currentRun = ++arcadeRunId;
+      arcadeScreenText.innerHTML = '';
+      stopArcadeCursor();
+
+      for (const line of arcadeLines) {
+        if (currentRun !== arcadeRunId) return;
+
+        if (line.gap) {
+          const gap = document.createElement('div');
+          gap.className = 'screen-gap';
+          arcadeScreenText.appendChild(gap);
+          attachArcadeCursor();
+          await wait(120);
+          continue;
+        }
+
+        const row = document.createElement('div');
+        row.className = 'screen-line';
+        arcadeScreenText.appendChild(row);
+        attachArcadeCursor();
+
+        await typeHTML(row, line.html, 18, currentRun);
+        attachArcadeCursor();
+        await wait(120);
+      }
+
+      attachArcadeCursor();
+    }
+
+    function wait(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    function typeHTML(element, html, speed = 18, runId) {
+      return new Promise(resolve => {
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+
+        const nodes = Array.from(temp.childNodes);
+        let nodeIndex = 0;
+
+        function typeNextNode() {
+          if (runId !== arcadeRunId) {
+            resolve();
+            return;
+          }
+
+          if (nodeIndex >= nodes.length) {
+            resolve();
+            return;
+          }
+
+          const node = nodes[nodeIndex];
+
+          if (node.nodeType === Node.TEXT_NODE) {
+            let i = 0;
+            const textNode = document.createTextNode('');
+            element.appendChild(textNode);
+            attachArcadeCursor();
+
+            const tick = setInterval(() => {
+              if (runId !== arcadeRunId) {
+                clearInterval(tick);
+                resolve();
+                return;
+              }
+
+              textNode.textContent += node.textContent.charAt(i);
+              i++;
+              attachArcadeCursor();
+
+              if (i >= node.textContent.length) {
+                clearInterval(tick);
+                nodeIndex++;
+                typeNextNode();
+              }
+            }, speed);
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const clone = node.cloneNode(false);
+            element.appendChild(clone);
+            attachArcadeCursor();
+
+            let i = 0;
+            const text = node.textContent;
+
+            const tick = setInterval(() => {
+              if (runId !== arcadeRunId) {
+                clearInterval(tick);
+                resolve();
+                return;
+              }
+
+              clone.textContent += text.charAt(i);
+              i++;
+              attachArcadeCursor();
+
+              if (i >= text.length) {
+                clearInterval(tick);
+                nodeIndex++;
+                typeNextNode();
+              }
+            }, speed);
+          } else {
+            nodeIndex++;
+            typeNextNode();
+          }
+        }
+
+        typeNextNode();
+      });
+    }
+
+    function attachArcadeCursor() {
+      const oldCursor = arcadeScreenText.querySelector('.arcade-cursor');
+      if (oldCursor) oldCursor.remove();
+
+      const cursor = document.createElement('span');
+      cursor.className = 'arcade-cursor';
+      cursor.textContent = '█';
+      arcadeScreenText.appendChild(cursor);
+    }
+
+    function stopArcadeCursor() {
+      clearInterval(cursorInterval);
+      const oldCursor = arcadeScreenText.querySelector('.arcade-cursor');
+      if (oldCursor) oldCursor.remove();
     }
 
     rerunTerminal.addEventListener('click', () => {
