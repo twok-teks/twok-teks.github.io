@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -50,25 +51,25 @@
       position: relative;
     }
 
-.quest-log{
-  margin-top:10px;
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-}
+    .quest-log {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-.quest-entry{
-  font-family:'VT323', monospace;
-  font-size:1.6rem;
-  line-height:1.3;
-}
+    .quest-entry {
+      font-family: 'VT323', monospace;
+      font-size: 1.6rem;
+      line-height: 1.3;
+    }
 
-.quest-title{
-  color:#00ff62;
-  text-shadow:0 0 6px #00ff62;
-  display:block;
-  margin-bottom:4px;
-}
+    .quest-title {
+      color: #00ff62;
+      text-shadow: 0 0 6px #00ff62;
+      display: block;
+      margin-bottom: 4px;
+    }
 
     body::before {
       content: "";
@@ -76,13 +77,11 @@
       inset: 0;
       pointer-events: none;
       background:
-        repeating-linear-gradient(
-          to bottom,
-          rgba(255,255,255,0.04) 0px,
-          rgba(255,255,255,0.04) 1px,
+        repeating-linear-gradient(to bottom,
+          rgba(255, 255, 255, 0.04) 0px,
+          rgba(255, 255, 255, 0.04) 1px,
           transparent 2px,
-          transparent 4px
-        );
+          transparent 4px);
       mix-blend-mode: soft-light;
       opacity: 0.34;
       z-index: 100;
@@ -93,7 +92,7 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at center, transparent 58%, rgba(0,0,0,0.4) 100%);
+      background: radial-gradient(circle at center, transparent 58%, rgba(0, 0, 0, 0.4) 100%);
       z-index: 99;
     }
 
@@ -105,9 +104,9 @@
       content: "";
       pointer-events: none;
       background-image:
-        radial-gradient(circle, rgba(255,255,255,.8) 1px, transparent 1.4px),
-        radial-gradient(circle, rgba(0,246,255,.65) 1.2px, transparent 1.8px),
-        radial-gradient(circle, rgba(255,79,216,.55) 1px, transparent 1.6px);
+        radial-gradient(circle, rgba(255, 255, 255, .8) 1px, transparent 1.4px),
+        radial-gradient(circle, rgba(0, 246, 255, .65) 1.2px, transparent 1.8px),
+        radial-gradient(circle, rgba(255, 79, 216, .55) 1px, transparent 1.6px);
       background-size: 180px 180px, 260px 260px, 320px 320px;
       background-position: 0 0, 40px 60px, 90px 120px;
       opacity: .25;
@@ -115,12 +114,26 @@
       animation: drift 28s linear infinite;
     }
 
-    .stars::before { opacity: .16; transform: scale(1.2); animation-duration: 42s; }
-    .stars::after { opacity: .12; transform: scale(1.45); animation-duration: 58s; }
+    .stars::before {
+      opacity: .16;
+      transform: scale(1.2);
+      animation-duration: 42s;
+    }
+
+    .stars::after {
+      opacity: .12;
+      transform: scale(1.45);
+      animation-duration: 58s;
+    }
 
     @keyframes drift {
-      from { transform: translateY(0); }
-      to { transform: translateY(120px); }
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(120px);
+      }
     }
 
     .boot-overlay {
@@ -142,8 +155,8 @@
     .boot-box {
       width: min(720px, 100%);
       border: 3px solid var(--green);
-      box-shadow: 0 0 25px rgba(65,255,109,.35);
-      background: rgba(0,0,0,.92);
+      box-shadow: 0 0 25px rgba(65, 255, 109, .35);
+      background: rgba(0, 0, 0, .92);
       padding: 28px;
       color: var(--green);
       font-family: 'VT323', monospace;
@@ -156,18 +169,40 @@
       font-size: clamp(.85rem, 2vw, 1.2rem);
       color: var(--yellow);
       margin-bottom: 20px;
-      text-shadow: 0 0 10px rgba(255,228,94,.4);
+      text-shadow: 0 0 10px rgba(255, 228, 94, .4);
     }
 
-    .boot-line { opacity: 0; transform: translateY(10px); animation: bootLine .55s forwards; }
-    .boot-line:nth-child(2) { animation-delay: .1s; }
-    .boot-line:nth-child(3) { animation-delay: .35s; }
-    .boot-line:nth-child(4) { animation-delay: .6s; }
-    .boot-line:nth-child(5) { animation-delay: .9s; }
-    .boot-line:nth-child(6) { animation-delay: 1.2s; }
+    .boot-line {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: bootLine .55s forwards;
+    }
+
+    .boot-line:nth-child(2) {
+      animation-delay: .1s;
+    }
+
+    .boot-line:nth-child(3) {
+      animation-delay: .35s;
+    }
+
+    .boot-line:nth-child(4) {
+      animation-delay: .6s;
+    }
+
+    .boot-line:nth-child(5) {
+      animation-delay: .9s;
+    }
+
+    .boot-line:nth-child(6) {
+      animation-delay: 1.2s;
+    }
 
     @keyframes bootLine {
-      to { opacity: 1; transform: translateY(0); }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .shell {
@@ -186,14 +221,19 @@
       margin: 16px auto 22px;
       backdrop-filter: blur(14px);
       background: rgba(7, 4, 12, 0.75);
-      border: 2px solid rgba(255,79,216,.4);
-      box-shadow: var(--shadow-pink), inset 0 0 18px rgba(255,255,255,.03);
+      border: 2px solid rgba(255, 79, 216, .4);
+      box-shadow: var(--shadow-pink), inset 0 0 18px rgba(255, 255, 255, .03);
       border-radius: 999px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
       padding: 14px 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .topbar.hide-nav {
+      transform: translateY(-140%);
     }
 
     .brand {
@@ -210,9 +250,9 @@
       display: grid;
       place-items: center;
       color: var(--green);
-      background: linear-gradient(180deg, rgba(0,0,0,.8), rgba(43,18,58,.9));
-      border: 2px solid rgba(65,255,109,.55);
-      box-shadow: 0 0 18px rgba(65,255,109,.2);
+      background: linear-gradient(180deg, rgba(0, 0, 0, .8), rgba(43, 18, 58, .9));
+      border: 2px solid rgba(65, 255, 109, .55);
+      box-shadow: 0 0 18px rgba(65, 255, 109, .2);
       font-size: 1rem;
       flex-shrink: 0;
     }
@@ -229,13 +269,13 @@
       font-size: clamp(.7rem, 1.4vw, 1rem);
       color: var(--yellow);
       line-height: 1.4;
-      text-shadow: 0 0 12px rgba(255,228,94,.18);
+      text-shadow: 0 0 12px rgba(255, 228, 94, .18);
     }
 
     .nav-toggle {
       display: none;
-      background: rgba(255,255,255,.04);
-      border: 2px solid rgba(0,246,255,.4);
+      background: rgba(255, 255, 255, .04);
+      border: 2px solid rgba(0, 246, 255, .4);
       color: var(--cyan);
       border-radius: 12px;
       width: 48px;
@@ -271,8 +311,8 @@
     nav a.active {
       color: var(--bg);
       background: linear-gradient(90deg, var(--cyan), #9cfffd);
-      border-color: rgba(255,255,255,.3);
-      box-shadow: 0 0 18px rgba(0,246,255,.35);
+      border-color: rgba(255, 255, 255, .3);
+      box-shadow: 0 0 18px rgba(0, 246, 255, .35);
       transform: translateY(-2px);
     }
 
@@ -280,13 +320,13 @@
       position: relative;
       overflow: hidden;
       min-height: clamp(620px, 88vh, 780px);
-      border: 3px solid rgba(255,79,216,.5);
+      border: 3px solid rgba(255, 79, 216, .5);
       border-radius: 34px;
-      box-shadow: 0 0 32px rgba(255,79,216,.18), inset 0 0 60px rgba(0,246,255,.08);
+      box-shadow: 0 0 32px rgba(255, 79, 216, .18), inset 0 0 60px rgba(0, 246, 255, .08);
       background:
-        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,0)),
-        radial-gradient(circle at 50% 5%, rgba(255,228,94,.18), transparent 22%),
-        linear-gradient(180deg, rgba(24,8,34,.7), rgba(6,3,10,.9));
+        linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, 0)),
+        radial-gradient(circle at 50% 5%, rgba(255, 228, 94, .18), transparent 22%),
+        linear-gradient(180deg, rgba(24, 8, 34, .7), rgba(6, 3, 10, .9));
       display: grid;
       grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
       gap: 28px;
@@ -299,8 +339,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, transparent 0%, rgba(255,79,216,.08) 70%, transparent 100%),
-        linear-gradient(90deg, transparent 0%, rgba(0,246,255,.08) 50%, transparent 100%);
+        linear-gradient(180deg, transparent 0%, rgba(255, 79, 216, .08) 70%, transparent 100%),
+        linear-gradient(90deg, transparent 0%, rgba(0, 246, 255, .08) 50%, transparent 100%);
       pointer-events: none;
     }
 
@@ -309,9 +349,9 @@
       inset: auto 0 0 0;
       height: 45%;
       background:
-        linear-gradient(to top, rgba(0,0,0,.65), transparent),
-        repeating-linear-gradient(90deg, rgba(0,246,255,.24) 0 2px, transparent 2px 58px),
-        repeating-linear-gradient(0deg, rgba(0,246,255,.24) 0 2px, transparent 2px 58px);
+        linear-gradient(to top, rgba(0, 0, 0, .65), transparent),
+        repeating-linear-gradient(90deg, rgba(0, 246, 255, .24) 0 2px, transparent 2px 58px),
+        repeating-linear-gradient(0deg, rgba(0, 246, 255, .24) 0 2px, transparent 2px 58px);
       transform: perspective(700px) rotateX(78deg) translateY(35%);
       transform-origin: bottom;
       opacity: .55;
@@ -332,9 +372,9 @@
       margin-bottom: 18px;
       padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(0,0,0,.38);
-      border: 2px solid rgba(65,255,109,.28);
-      box-shadow: 0 0 18px rgba(65,255,109,.12);
+      background: rgba(0, 0, 0, .38);
+      border: 2px solid rgba(65, 255, 109, .28);
+      box-shadow: 0 0 18px rgba(65, 255, 109, .12);
     }
 
     .eyebrow .dot {
@@ -342,20 +382,25 @@
       height: 10px;
       border-radius: 50%;
       background: var(--green);
-      box-shadow: 0 0 10px rgba(65,255,109,.8);
+      box-shadow: 0 0 10px rgba(65, 255, 109, .8);
       animation: blink 1.3s infinite;
     }
 
     @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: .35; }
+      0%, 100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .35;
+      }
     }
 
     .hero h2 {
       font-size: clamp(1rem, 2.1vw, 1.55rem);
       line-height: 1.55;
       color: #fff7cc;
-      text-shadow: 0 0 20px rgba(255,228,94,.18), 2px 2px 0 rgba(0,0,0,.55);
+      text-shadow: 0 0 20px rgba(255, 228, 94, .18), 2px 2px 0 rgba(0, 0, 0, .55);
       margin-bottom: 18px;
       max-width: none;
     }
@@ -366,7 +411,7 @@
       color: var(--cyan);
       margin-bottom: 16px;
       line-height: 1.15;
-      text-shadow: 0 0 14px rgba(0,246,255,.18);
+      text-shadow: 0 0 14px rgba(0, 246, 255, .18);
     }
 
     .hero p {
@@ -392,7 +437,7 @@
       gap: 10px;
       padding: 14px 18px;
       border-radius: 14px;
-      border: 2px solid rgba(255,255,255,.2);
+      border: 2px solid rgba(255, 255, 255, .2);
       font-size: .58rem;
       transition: .22s ease;
       cursor: pointer;
@@ -406,8 +451,8 @@
 
     .btn-secondary {
       color: var(--cyan);
-      background: rgba(0,0,0,.34);
-      border-color: rgba(0,246,255,.38);
+      background: rgba(0, 0, 0, .34);
+      border-color: rgba(0, 246, 255, .38);
       box-shadow: var(--shadow-cyan);
     }
 
@@ -425,8 +470,8 @@
     }
 
     .stat {
-      background: rgba(0,0,0,.34);
-      border: 2px solid rgba(255,255,255,.12);
+      background: rgba(0, 0, 0, .34);
+      border: 2px solid rgba(255, 255, 255, .12);
       border-radius: 16px;
       padding: 14px;
     }
@@ -444,7 +489,7 @@
       color: var(--green);
       font-size: .86rem;
       margin-bottom: 10px;
-      text-shadow: 0 0 12px rgba(65,255,109,.2);
+      text-shadow: 0 0 12px rgba(65, 255, 109, .2);
     }
 
     .stat span {
@@ -461,22 +506,27 @@
       align-self: center;
       width: min(390px, 100%);
       aspect-ratio: 1 / 1;
-      filter: drop-shadow(0 18px 36px rgba(0,0,0,.45));
+      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, .45));
       animation: floaty 4.2s ease-in-out infinite;
     }
 
     @keyframes floaty {
-      0%,100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+      0%, 100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     .cabinet-body {
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, #21092a 0%, #16041f 60%, #09020d 100%);
-      border: 3px solid rgba(255,79,216,.48);
+      border: 3px solid rgba(255, 79, 216, .48);
       border-radius: 30px;
-      box-shadow: inset 0 0 30px rgba(255,255,255,.04), 0 0 25px rgba(255,79,216,.18);
+      box-shadow: inset 0 0 30px rgba(255, 255, 255, .04), 0 0 25px rgba(255, 79, 216, .18);
       overflow: hidden;
     }
 
@@ -487,15 +537,15 @@
       right: 10%;
       height: 12%;
       border-radius: 14px;
-      border: 2px solid rgba(255,228,94,.55);
-      background: linear-gradient(90deg, rgba(255,79,216,.28), rgba(0,246,255,.28));
+      border: 2px solid rgba(255, 228, 94, .55);
+      background: linear-gradient(90deg, rgba(255, 79, 216, .28), rgba(0, 246, 255, .28));
       display: grid;
       place-items: center;
       color: #fff7cc;
       font-size: .7rem;
       text-align: center;
       padding: 8px;
-      box-shadow: 0 0 18px rgba(255,228,94,.15);
+      box-shadow: 0 0 18px rgba(255, 228, 94, .15);
     }
 
     .cabinet-screen {
@@ -505,13 +555,13 @@
       right: 11%;
       height: 37%;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,0)),
-        radial-gradient(circle at center, rgba(0,246,255,.1), transparent 60%),
+        linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, 0)),
+        radial-gradient(circle at center, rgba(0, 246, 255, .1), transparent 60%),
         #07121c;
-      border: 3px solid rgba(0,246,255,.45);
+      border: 3px solid rgba(0, 246, 255, .45);
       border-radius: 18px;
       padding: 18px;
-      box-shadow: inset 0 0 30px rgba(0,0,0,.65), 0 0 18px rgba(0,246,255,.18);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, .65), 0 0 18px rgba(0, 246, 255, .18);
       overflow: hidden;
     }
 
@@ -519,7 +569,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: repeating-linear-gradient(to bottom, rgba(255,255,255,.05), rgba(255,255,255,.05) 1px, transparent 2px, transparent 4px);
+      background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .05), rgba(255, 255, 255, .05) 1px, transparent 2px, transparent 4px);
       opacity: .25;
       pointer-events: none;
     }
@@ -531,11 +581,16 @@
       font-size: clamp(1.1rem, 2.1vw, 1.55rem);
       line-height: 1.15;
       color: var(--green);
-      text-shadow: 0 0 8px rgba(65,255,109,.2);
+      text-shadow: 0 0 8px rgba(65, 255, 109, .2);
     }
 
-    .screen-text .highlight { color: var(--yellow); }
-    .screen-text .cyan { color: var(--cyan); }
+    .screen-text .highlight {
+      color: var(--yellow);
+    }
+
+    .screen-text .cyan {
+      color: var(--cyan);
+    }
 
     .cabinet-controls {
       position: absolute;
@@ -554,53 +609,19 @@
       height: 100%;
       min-height: 122px;
       border-radius: 20px;
-      background: rgba(0,0,0,.32);
-      border: 2px solid rgba(255,255,255,.12);
+      background: rgba(0, 0, 0, .32);
+      border: 2px solid rgba(255, 255, 255, .12);
       position: relative;
       overflow: hidden;
-    }
-
-    .stick {
-      position: absolute;
-      left: 50%;
-      top: 55%;
-      width: 16px;
-      height: 72px;
-      background: linear-gradient(180deg, #ff90e8, #ff4fd8);
-      border-radius: 999px;
-      transform: translate(-50%, -50%) rotate(-18deg);
-      box-shadow: 0 0 12px rgba(255,79,216,.2);
-    }
-
-    .stick::before {
-      content: "";
-      position: absolute;
-      top: -18px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #fff, #ff4fd8 60%, #af006e 100%);
-    }
-
-    .base {
-      position: absolute;
-      left: 50%;
-      top: 63%;
-      transform: translate(-50%, -50%);
-      width: 98px;
-      height: 98px;
-      border-radius: 50%;
-      border: 2px solid rgba(255,255,255,.12);
-      background: radial-gradient(circle at center, rgba(255,255,255,.08), rgba(0,0,0,.28));
     }
 
     .btns {
       position: absolute;
       inset: 14px;
       display: grid;
-      grid-template-columns: 1fr; max-width:800px; margin:auto;
+      grid-template-columns: 1fr;
+      max-width: 800px;
+      margin: auto;
       gap: 12px;
       place-items: center;
       align-content: center;
@@ -611,19 +632,35 @@
       width: 48px;
       height: 48px;
       border-radius: 50%;
-      box-shadow: inset -6px -6px 10px rgba(0,0,0,.28), 0 0 16px rgba(0,246,255,.12);
-      border: 2px solid rgba(255,255,255,.16);
+      box-shadow: inset -6px -6px 10px rgba(0, 0, 0, .28), 0 0 16px rgba(0, 246, 255, .12);
+      border: 2px solid rgba(255, 255, 255, .16);
       animation: pulse 1.8s infinite alternate;
     }
 
-    .arcade-btn:nth-child(1) { background: radial-gradient(circle at 30% 30%, #fff, #00f6ff 60%, #0086a4 100%); }
-    .arcade-btn:nth-child(2) { background: radial-gradient(circle at 30% 30%, #fff, #ff4fd8 60%, #9c006b 100%); }
-    .arcade-btn:nth-child(3) { background: radial-gradient(circle at 30% 30%, #fff, #ffe45e 60%, #c58b00 100%); }
-    .arcade-btn:nth-child(4) { background: radial-gradient(circle at 30% 30%, #fff, #41ff6d 60%, #189436 100%); }
+    .arcade-btn:nth-child(1) {
+      background: radial-gradient(circle at 30% 30%, #fff, #00f6ff 60%, #0086a4 100%);
+    }
+
+    .arcade-btn:nth-child(2) {
+      background: radial-gradient(circle at 30% 30%, #fff, #ff4fd8 60%, #9c006b 100%);
+    }
+
+    .arcade-btn:nth-child(3) {
+      background: radial-gradient(circle at 30% 30%, #fff, #ffe45e 60%, #c58b00 100%);
+    }
+
+    .arcade-btn:nth-child(4) {
+      background: radial-gradient(circle at 30% 30%, #fff, #41ff6d 60%, #189436 100%);
+    }
 
     @keyframes pulse {
-      from { transform: scale(1); }
-      to { transform: scale(1.06); }
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.06);
+      }
     }
 
     @media (max-width: 980px) {
@@ -656,7 +693,7 @@
       border: 2px solid var(--border);
       border-radius: 30px;
       padding: clamp(22px, 3vw, 34px);
-      box-shadow: var(--shadow-cyan), inset 0 0 22px rgba(255,255,255,.03);
+      box-shadow: var(--shadow-cyan), inset 0 0 22px rgba(255, 255, 255, .03);
       overflow: hidden;
       position: relative;
     }
@@ -665,7 +702,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,.06), transparent 35%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, .06), transparent 35%);
       pointer-events: none;
     }
 
@@ -682,7 +719,7 @@
       color: var(--pink);
       font-size: clamp(.86rem, 1.8vw, 1.2rem);
       line-height: 1.4;
-      text-shadow: 0 0 12px rgba(255,79,216,.2);
+      text-shadow: 0 0 12px rgba(255, 79, 216, .2);
     }
 
     .section-title span {
@@ -690,8 +727,8 @@
       color: var(--green);
       padding: 10px 12px;
       border-radius: 999px;
-      background: rgba(0,0,0,.35);
-      border: 2px solid rgba(65,255,109,.26);
+      background: rgba(0, 0, 0, .35);
+      border: 2px solid rgba(65, 255, 109, .26);
     }
 
     .section p,
@@ -721,8 +758,8 @@
     }
 
     .panel-card {
-      background: rgba(0,0,0,.28);
-      border: 2px solid rgba(255,255,255,.1);
+      background: rgba(0, 0, 0, .28);
+      border: 2px solid rgba(255, 255, 255, .1);
       border-radius: 22px;
       padding: 18px;
       position: relative;
@@ -759,16 +796,16 @@
       padding: 9px 13px;
       font-size: 1.25rem;
       line-height: 1;
-      border: 2px solid rgba(255,255,255,.1);
-      background: rgba(255,255,255,.05);
+      border: 2px solid rgba(255, 255, 255, .1);
+      background: rgba(255, 255, 255, .05);
       color: #fff;
       transition: .2s ease;
     }
 
     .pill:hover {
       transform: translateY(-3px);
-      border-color: rgba(0,246,255,.4);
-      box-shadow: 0 0 14px rgba(0,246,255,.16);
+      border-color: rgba(0, 246, 255, .4);
+      box-shadow: 0 0 14px rgba(0, 246, 255, .16);
     }
 
     .xp-board {
@@ -779,9 +816,9 @@
 
     .xp {
       border-radius: 18px;
-      background: rgba(255,255,255,.03);
+      background: rgba(255, 255, 255, .03);
       padding: 14px;
-      border: 2px solid rgba(255,255,255,.1);
+      border: 2px solid rgba(255, 255, 255, .1);
     }
 
     .xp-label {
@@ -798,16 +835,16 @@
       width: 100%;
       height: 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,.08);
+      background: rgba(255, 255, 255, .08);
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,.08);
+      border: 1px solid rgba(255, 255, 255, .08);
     }
 
     .xp-fill {
       height: 100%;
       border-radius: inherit;
       background: linear-gradient(90deg, var(--cyan), var(--green));
-      box-shadow: 0 0 14px rgba(0,246,255,.2);
+      box-shadow: 0 0 14px rgba(0, 246, 255, .2);
     }
 
     .timeline {
@@ -824,15 +861,15 @@
       bottom: 10px;
       width: 3px;
       background: linear-gradient(180deg, var(--pink), var(--cyan), var(--green));
-      box-shadow: 0 0 14px rgba(0,246,255,.16);
+      box-shadow: 0 0 14px rgba(0, 246, 255, .16);
     }
 
     .timeline-item {
       position: relative;
       margin-left: 52px;
-      background: rgba(0,0,0,.28);
+      background: rgba(0, 0, 0, .28);
       border-radius: 22px;
-      border: 2px solid rgba(255,255,255,.1);
+      border: 2px solid rgba(255, 255, 255, .1);
       padding: 20px 20px 18px;
       transition: .22s ease;
     }
@@ -843,15 +880,15 @@
     .mini-card:hover,
     .contact-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 0 20px rgba(0,246,255,.16);
+      box-shadow: 0 0 20px rgba(0, 246, 255, .16);
     }
 
     .edu-date {
-  font-family: 'VT323', monospace;
-  font-size: 1.2rem;
-  color: #aaa;
-  margin-top: 4px;
-}
+      font-family: 'VT323', monospace;
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-top: 4px;
+    }
 
     .timeline-item::before {
       content: "";
@@ -862,8 +899,8 @@
       height: 18px;
       border-radius: 50%;
       background: var(--yellow);
-      border: 3px solid rgba(0,0,0,.5);
-      box-shadow: 0 0 16px rgba(255,228,94,.35);
+      border: 3px solid rgba(0, 0, 0, .5);
+      box-shadow: 0 0 16px rgba(255, 228, 94, .35);
     }
 
     .timeline-top {
@@ -987,8 +1024,8 @@
     .project-card,
     .mini-card,
     .contact-card {
-      background: rgba(0,0,0,.28);
-      border: 2px solid rgba(255,255,255,.1);
+      background: rgba(0, 0, 0, .28);
+      border: 2px solid rgba(255, 255, 255, .1);
       border-radius: 22px;
       padding: 18px;
       transition: .22s ease;
@@ -1006,9 +1043,9 @@
       padding: 8px 10px;
       border-radius: 999px;
       font-size: .48rem;
-      background: rgba(255,255,255,.06);
+      background: rgba(255, 255, 255, .06);
       color: var(--yellow);
-      border: 2px solid rgba(255,228,94,.14);
+      border: 2px solid rgba(255, 228, 94, .14);
     }
 
     .project-card a,
@@ -1035,8 +1072,8 @@
     }
 
     .filter-btn {
-      border: 2px solid rgba(255,255,255,.1);
-      background: rgba(0,0,0,.35);
+      border: 2px solid rgba(255, 255, 255, .1);
+      background: rgba(0, 0, 0, .35);
       color: #fff;
       border-radius: 999px;
       padding: 10px 14px;
@@ -1050,7 +1087,7 @@
     .filter-btn:hover {
       color: var(--bg);
       background: linear-gradient(90deg, var(--yellow), #fff3a0);
-      border-color: rgba(255,255,255,.2);
+      border-color: rgba(255, 255, 255, .2);
       transform: translateY(-2px);
     }
 
@@ -1067,8 +1104,8 @@
       gap: 8px;
       padding: 10px 12px;
       border-radius: 12px;
-      border: 2px solid rgba(0,246,255,.22);
-      background: rgba(255,255,255,.03);
+      border: 2px solid rgba(0, 246, 255, .22);
+      background: rgba(255, 255, 255, .03);
       font-size: .48rem;
     }
 
@@ -1091,15 +1128,23 @@
       border-radius: 50%;
     }
 
-    .terminal-dot.red { background: #ff5f56; }
-    .terminal-dot.yellow { background: #ffbd2e; }
-    .terminal-dot.green { background: #27c93f; }
+    .terminal-dot.red {
+      background: #ff5f56;
+    }
+
+    .terminal-dot.yellow {
+      background: #ffbd2e;
+    }
+
+    .terminal-dot.green {
+      background: #27c93f;
+    }
 
     .terminal-body {
       flex: 1;
       border-radius: 18px;
       background: #03090d;
-      border: 2px solid rgba(0,246,255,.16);
+      border: 2px solid rgba(0, 246, 255, .16);
       padding: 16px;
       overflow: hidden;
       position: relative;
@@ -1109,7 +1154,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at center, rgba(0,246,255,.06), transparent 65%);
+      background: radial-gradient(circle at center, rgba(0, 246, 255, .06), transparent 65%);
       pointer-events: none;
     }
 
@@ -1139,8 +1184,8 @@
 
     .terminal-prompt button {
       margin-left: auto;
-      border: 2px solid rgba(65,255,109,.24);
-      background: rgba(255,255,255,.04);
+      border: 2px solid rgba(65, 255, 109, .24);
+      background: rgba(255, 255, 255, .04);
       color: var(--green);
       border-radius: 12px;
       padding: 10px 12px;
@@ -1155,10 +1200,10 @@
       place-items: center;
       text-align: center;
       background:
-        linear-gradient(180deg, rgba(255,79,216,.06), rgba(0,246,255,.03)),
-        rgba(0,0,0,.24);
+        linear-gradient(180deg, rgba(255, 79, 216, .06), rgba(0, 246, 255, .03)),
+        rgba(0, 0, 0, .24);
       border-radius: 26px;
-      border: 2px dashed rgba(255,228,94,.38);
+      border: 2px dashed rgba(255, 228, 94, .38);
       padding: 24px;
       position: relative;
       overflow: hidden;
@@ -1174,7 +1219,7 @@
       color: var(--bg);
       padding: 12px 48px;
       font-size: .55rem;
-      box-shadow: 0 0 18px rgba(255,228,94,.24);
+      box-shadow: 0 0 18px rgba(255, 228, 94, .24);
     }
 
     .coming-soon h4 {
@@ -1211,8 +1256,8 @@
       font-size: .52rem;
       padding: 10px 14px;
       border-radius: 999px;
-      border: 2px solid rgba(255,228,94,.16);
-      background: rgba(255,255,255,.04);
+      border: 2px solid rgba(255, 228, 94, .16);
+      background: rgba(255, 255, 255, .04);
     }
 
     .juke-box {
@@ -1223,8 +1268,8 @@
     .track {
       padding: 14px;
       border-radius: 16px;
-      background: rgba(255,255,255,.04);
-      border: 2px solid rgba(255,255,255,.08);
+      background: rgba(255, 255, 255, .04);
+      border: 2px solid rgba(255, 255, 255, .08);
     }
 
     .track-top {
@@ -1284,8 +1329,8 @@
       place-items: center;
       text-decoration: none;
       color: var(--cyan);
-      border: 2px solid rgba(0,246,255,.22);
-      background: rgba(255,255,255,.03);
+      border: 2px solid rgba(0, 246, 255, .22);
+      background: rgba(255, 255, 255, .03);
       font-size: 1.1rem;
       transition: .2s ease;
     }
@@ -1293,7 +1338,7 @@
     .social-link:hover {
       transform: translateY(-4px);
       color: var(--pink);
-      box-shadow: 0 0 18px rgba(255,79,216,.16);
+      box-shadow: 0 0 18px rgba(255, 79, 216, .16);
     }
 
     footer {
@@ -1325,21 +1370,21 @@
 
     .achievement-card {
       background: rgba(6, 4, 12, .95);
-      border: 2px solid rgba(255,228,94,.4);
+      border: 2px solid rgba(255, 228, 94, .4);
       border-radius: 22px;
       padding: 16px;
       display: grid;
       grid-template-columns: 64px 1fr;
       gap: 14px;
-      box-shadow: 0 0 24px rgba(255,228,94,.16);
+      box-shadow: 0 0 24px rgba(255, 228, 94, .16);
     }
 
     .achievement-icon {
       width: 64px;
       height: 64px;
       border-radius: 18px;
-      background: linear-gradient(180deg, rgba(255,228,94,.22), rgba(255,79,216,.12));
-      border: 2px solid rgba(255,228,94,.35);
+      background: linear-gradient(180deg, rgba(255, 228, 94, .22), rgba(255, 79, 216, .12));
+      border: 2px solid rgba(255, 228, 94, .35);
       display: grid;
       place-items: center;
       color: var(--yellow);
@@ -1373,12 +1418,31 @@
     }
 
     @keyframes glitch {
-      0% { transform: translate(0); filter: hue-rotate(0deg); }
-      20% { transform: translate(-2px, 2px); }
-      40% { transform: translate(2px, -2px); }
-      60% { transform: translate(-2px, 0); }
-      80% { transform: translate(2px, 1px); }
-      100% { transform: translate(0); filter: hue-rotate(18deg); }
+      0% {
+        transform: translate(0);
+        filter: hue-rotate(0deg);
+      }
+
+      20% {
+        transform: translate(-2px, 2px);
+      }
+
+      40% {
+        transform: translate(2px, -2px);
+      }
+
+      60% {
+        transform: translate(-2px, 0);
+      }
+
+      80% {
+        transform: translate(2px, 1px);
+      }
+
+      100% {
+        transform: translate(0);
+        filter: hue-rotate(18deg);
+      }
     }
 
     @media (max-width: 1080px) {
@@ -1403,14 +1467,19 @@
         flex-wrap: wrap;
       }
 
-      .nav-toggle { display: inline-grid; place-items: center; }
+      .nav-toggle {
+        display: inline-grid;
+        place-items: center;
+      }
 
       nav {
         width: 100%;
         display: none;
       }
 
-      nav.open { display: block; }
+      nav.open {
+        display: block;
+      }
 
       nav ul {
         justify-content: flex-start;
@@ -1494,6 +1563,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="stars"></div>
 
@@ -1544,11 +1614,13 @@
           <div class="tagline">Let’s get started.</div>
           <p>
             Howdy! I’m Khanh Van. I build dependable software, enjoy solving complex problems,
-            and I’m currently continuing my journey from UT Dallas into the M.S. in Computer Science program at UT Austin.
+            and I’m currently continuing my journey from UT Dallas into the M.S. in Computer Science program at UT
+            Austin.
           </p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#projects"><i class="fa-solid fa-rocket"></i> ENTER PROJECTS</a>
-            <a class="btn btn-secondary" href="Khanh_Van_Resume.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines"></i> OPEN RESUME</a>
+            <a class="btn btn-secondary" href="Khanh_Van_Resume.pdf" target="_blank" rel="noopener"><i
+                class="fa-solid fa-file-lines"></i> OPEN RESUME</a>
           </div>
 
           <div class="stats">
@@ -1618,49 +1690,47 @@
             <div class="panel-card">
               <h4>ORIGIN STORY</h4>
 
-<div class="quest-log">
+              <div class="quest-log">
+                <div class="quest-entry">
+                  <span class="quest-title">STARTING ZONE</span>
+                  <p>Houston, Texas.</p>
+                </div>
 
-  <div class="quest-entry">
-    <span class="quest-title">STARTING ZONE</span>
-    <p>Houston, Texas.</p>
-  </div>
+                <div class="quest-entry">
+                  <span class="quest-title">LEVEL UP</span>
+                  <p>
+                    Studied Computer Science at
+                    <a href="https://cs.utdallas.edu/" target="_blank">
+                      The University of Texas at Dallas
+                    </a>, where I built my foundation in algorithms, systems, and software engineering.
+                  </p>
+                </div>
 
-  <div class="quest-entry">
-    <span class="quest-title">LEVEL UP</span>
-    <p>
-      Studied Computer Science at 
-      <a href="https://cs.utdallas.edu/" target="_blank">
-      The University of Texas at Dallas
-      </a>, where I built my foundation in algorithms, systems, and software engineering.
-    </p>
-  </div>
+                <div class="quest-entry">
+                  <span class="quest-title">MAIN QUEST COMPLETE</span>
+                  <p>Bachelor of Science in Computer Science.</p>
+                </div>
 
-  <div class="quest-entry">
-    <span class="quest-title">MAIN QUEST COMPLETE</span>
-    <p>Bachelor of Science in Computer Science.</p>
-  </div>
+                <div class="quest-entry">
+                  <span class="quest-title">NEXT QUEST UNLOCKED</span>
+                  <p>
+                    I’m now returning to continue my unfinished mission — pursuing my
+                    <strong>M.S. in Computer Science</strong> at
+                    <a href="https://cdso.utexas.edu/mscs" target="_blank">
+                      The University of Texas at Austin
+                    </a>.
+                  </p>
+                </div>
 
-  <div class="quest-entry">
-    <span class="quest-title">NEXT QUEST UNLOCKED</span>
-    <p>
-      I’m now returning to continue my unfinished mission — pursuing my
-      <strong>M.S. in Computer Science</strong> at 
-      <a href="https://cdso.utexas.edu/mscs" target="_blank">
-      The University of Texas at Austin
-      </a>.
-    </p>
-  </div>
+                <div class="quest-entry">
+                  <span class="quest-title">OBJECTIVE</span>
+                  <p>
+                    Continue leveling up as a software engineer, build meaningful systems,
+                    and eventually contribute to research in AI and machine learning.
+                  </p>
+                </div>
+              </div>
 
-  <div class="quest-entry">
-    <span class="quest-title">OBJECTIVE</span>
-    <p>
-      Continue leveling up as a software engineer, build meaningful systems,
-      and eventually contribute to research in AI and machine learning.
-    </p>
-  </div>
-
-</div>
-              
               <div class="tech-cloud">
                 <span class="pill">Java</span>
                 <span class="pill">Python</span>
@@ -1682,19 +1752,27 @@
               <div class="xp-board">
                 <div class="xp">
                   <div class="xp-label"><span>Problem Solving</span><span>95 XP</span></div>
-                  <div class="xp-track"><div class="xp-fill" style="width:95%"></div></div>
+                  <div class="xp-track">
+                    <div class="xp-fill" style="width:95%"></div>
+                  </div>
                 </div>
                 <div class="xp">
                   <div class="xp-label"><span>Backend Systems</span><span>90 XP</span></div>
-                  <div class="xp-track"><div class="xp-fill" style="width:90%"></div></div>
+                  <div class="xp-track">
+                    <div class="xp-fill" style="width:90%"></div>
+                  </div>
                 </div>
                 <div class="xp">
                   <div class="xp-label"><span>Cloud + CI/CD</span><span>82 XP</span></div>
-                  <div class="xp-track"><div class="xp-fill" style="width:82%"></div></div>
+                  <div class="xp-track">
+                    <div class="xp-fill" style="width:82%"></div>
+                  </div>
                 </div>
                 <div class="xp">
                   <div class="xp-label"><span>AI/ML Exploration</span><span>76 XP</span></div>
-                  <div class="xp-track"><div class="xp-fill" style="width:76%"></div></div>
+                  <div class="xp-track">
+                    <div class="xp-fill" style="width:76%"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1710,30 +1788,33 @@
           </div>
 
           <div class="timeline">
-            
             <article class="timeline-item">
               <div class="timeline-top">
                 <h4>State Farm</h4>
                 <div class="timeline-meta">Richardson, TX<br>Mar 2026 – Present</div>
               </div>
               <div class="timeline-role">Software Engineer</div>
-              <p class="timeline-copy">Building and maintaining enterprise software within the Property, Casualty, Auto and Fire engineering organization, focused on reliable systems and long-term modernization work.</p>
+              <p class="timeline-copy">Building and maintaining enterprise software within the PCAF engineering organization (Property, Casualty, Auto
+                and Fire), focused on reliable systems and long-term modernization work.</p>
               <ul class="timeline-list">
                 <li>Develop and support software solutions for large-scale enterprise platforms.</li>
-                <li>Contribute to modernization efforts that improve maintainability, scalability, and engineering efficiency.</li>
+                <li>Contribute to modernization efforts that improve maintainability, scalability, and engineering
+                  efficiency.</li>
                 <li>Collaborate with cross-functional teams to deliver dependable production-ready systems.</li>
               </ul>
             </article>
 
-<article class="timeline-item">
+            <article class="timeline-item">
               <div class="timeline-top">
                 <h4>Paycom</h4>
                 <div class="timeline-meta">Irving, TX<br>June 2025 – Mar 2026</div>
               </div>
               <div class="timeline-role">Software Developer II</div>
-              <p class="timeline-copy">Working on scheduling-focused systems and production features that need to be dependable, maintainable, and easy to evolve.</p>
+              <p class="timeline-copy">Worked on scheduling-focused systems and production features that need to be
+                dependable, maintainable, and easy to evolve.</p>
               <ul class="timeline-list">
-                <li>Develop and maintain Scheduling module features including archiving systems, exception point calculations, and employee-facing interfaces.</li>
+                <li>Develop and maintain Scheduling module features including archiving systems, exception point
+                  calculations, and employee-facing interfaces.</li>
                 <li>Collaborate across development, QA, and DevOps teams to improve delivery quality.</li>
                 <li>Integrate code into CI/CD workflows to support smooth deployments and consistent releases.</li>
               </ul>
@@ -1745,9 +1826,11 @@
                 <div class="timeline-meta">Richardson, TX<br>Oct 2024 – June 2025</div>
               </div>
               <div class="timeline-role">Full-Stack Developer</div>
-              <p class="timeline-copy">Built practical systems that helped real users manage leasing, communication, and day-to-day property workflows.</p>
+              <p class="timeline-copy">Built practical systems that helped real users manage leasing, communication, and
+                day-to-day property workflows.</p>
               <ul class="timeline-list">
-                <li>Designed and developed a responsive company website with tenant portal, rent payment support, and MLS IDX integration.</li>
+                <li>Designed and developed a responsive company website with tenant portal, rent payment support, and
+                  MLS IDX integration.</li>
                 <li>Built and deployed on AWS using Java, Spring Boot, and PostgreSQL.</li>
                 <li>Improved communication workflows and data management for smoother operations.</li>
               </ul>
@@ -1759,7 +1842,8 @@
                 <div class="timeline-meta">Richardson, TX<br>Jan 2024 – Present</div>
               </div>
               <div class="timeline-role">Mentor / Tutor</div>
-              <p class="timeline-copy">Helping students get unstuck, understand core concepts, and gain confidence in problem solving.</p>
+              <p class="timeline-copy">Helping students get unstuck, understand core concepts, and gain confidence in
+                problem solving.</p>
               <ul class="timeline-list">
                 <li>Tutor students in C++, Java, data structures, and algorithms.</li>
                 <li>Support discrete mathematics and computer architecture learning.</li>
@@ -1773,9 +1857,11 @@
                 <div class="timeline-meta">Plano, TX<br>Jun 2024 – Sep 2024</div>
               </div>
               <div class="timeline-role">Software Engineer Intern</div>
-              <p class="timeline-copy">Explored fraud-focused backend engineering and production-ready service design.</p>
+              <p class="timeline-copy">Explored fraud-focused backend engineering and production-ready service design.
+              </p>
               <ul class="timeline-list">
-                <li>Designed a Java backend service to flag suspicious transactions using rule-based and ML-augmented logic.</li>
+                <li>Designed a Java backend service to flag suspicious transactions using rule-based and ML-augmented
+                  logic.</li>
                 <li>Integrated secure RESTful APIs with PostgreSQL for downstream workflows.</li>
                 <li>Deployed containerized services on AWS with Docker and supported CI/CD automation.</li>
               </ul>
@@ -1787,7 +1873,8 @@
                 <div class="timeline-meta">Houston, TX<br>Jul 2019 – Aug 2020</div>
               </div>
               <div class="timeline-role">Retail IT Intern</div>
-              <p class="timeline-copy">One of my earlier real-world engineering experiences where app behavior met location-based features.</p>
+              <p class="timeline-copy">One of my earlier real-world engineering experiences where app behavior met
+                location-based features.</p>
               <ul class="timeline-list">
                 <li>Helped develop the “Arrived At The Station” feature using Google Maps API and geofencing.</li>
                 <li>Worked with backend APIs for real-time app communication.</li>
@@ -1802,20 +1889,18 @@
             <article class="edu-card">
               <h4>Education</h4>
               <ul class="edu-list">
+                <li>
+                  <strong>Master of Science in Computer Science</strong><br>
+                  The University of Texas at Austin
+                  <div class="edu-date">Jan 2026 – May 2027</div>
+                </li>
 
-  <li>
-    <strong>Master of Science in Computer Science</strong><br>
-    The University of Texas at Austin
-    <div class="edu-date">Jan 2026 – May 2027</div>
-  </li>
-
-  <li>
-    <strong>Bachelor of Science in Computer Science</strong><br>
-    The University of Texas at Dallas
-    <div class="edu-date">Aug 2023 – May 2025</div>
-  </li>
-
-</ul>
+                <li>
+                  <strong>Bachelor of Science in Computer Science</strong><br>
+                  The University of Texas at Dallas
+                  <div class="edu-date">Aug 2023 – May 2025</div>
+                </li>
+              </ul>
               <span class="tag">ACADEMIC BUILD MODE</span>
             </article>
 
@@ -1844,41 +1929,53 @@
           <div class="projects-grid" id="projectsGrid">
             <article class="project-card" data-category="ai fullstack">
               <h4>BotStonkWar</h4>
-              <p>Trading agent concept that combines real-time sentiment analysis from financial news with algorithmic strategies and modular decision-making.</p>
+              <p>Trading agent concept that combines real-time sentiment analysis from financial news with algorithmic
+                strategies and modular decision-making.</p>
               <span class="tag">AI + MICROSERVICES</span>
               <div class="project-links">
-                <a class="project-link" href="http://feature-webapp.emerginary.com/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Live</a>
-                <a class="project-link" href="https://github.com/twok-teks" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a class="project-link" href="http://feature-webapp.emerginary.com/" target="_blank" rel="noopener"><i
+                    class="fa-solid fa-globe"></i> Live</a>
+                <a class="project-link" href="https://github.com/twok-teks" target="_blank" rel="noopener"><i
+                    class="fa-brands fa-github"></i> GitHub</a>
               </div>
             </article>
 
             <article class="project-card" data-category="ai backend">
               <h4>Annual Fall Foliage ML Model</h4>
-              <p>Machine learning project that predicts foliage peak timing from historical patterns and weather-driven features.</p>
+              <p>Machine learning project that predicts foliage peak timing from historical patterns and weather-driven
+                features.</p>
               <span class="tag">PYTHON • SCIKIT-LEARN • FLASK</span>
               <div class="project-links">
-                <a class="project-link" href="http://fallfrenzy.online/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Live</a>
-                <a class="project-link" href="https://github.com/twok-teks/Fall_Foliage_ML_Model" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a class="project-link" href="http://fallfrenzy.online/" target="_blank" rel="noopener"><i
+                    class="fa-solid fa-globe"></i> Live</a>
+                <a class="project-link" href="https://github.com/twok-teks/Fall_Foliage_ML_Model" target="_blank"
+                  rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
               </div>
             </article>
 
             <article class="project-card" data-category="fullstack">
               <h4>Ingredience</h4>
-              <p>Smart kitchen assistant for tracking pantry items, generating recipe ideas, and creating shopping lists based on real inventory.</p>
+              <p>Smart kitchen assistant for tracking pantry items, generating recipe ideas, and creating shopping lists
+                based on real inventory.</p>
               <span class="tag">REACT • NODE • MONGODB</span>
               <div class="project-links">
-                <a class="project-link" href="http://ingredience.site/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Live</a>
-                <a class="project-link" href="https://github.com/twok-teks/Ingredience" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a class="project-link" href="http://ingredience.site/" target="_blank" rel="noopener"><i
+                    class="fa-solid fa-globe"></i> Live</a>
+                <a class="project-link" href="https://github.com/twok-teks/Ingredience" target="_blank"
+                  rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
               </div>
             </article>
 
             <article class="project-card" data-category="backend fullstack">
               <h4>Company Database Project</h4>
-              <p>Database-driven application for company operations with structured queries, user-facing views, and cleaner access to core business data.</p>
+              <p>Database-driven application for company operations with structured queries, user-facing views, and
+                cleaner access to core business data.</p>
               <span class="tag">FLASK • MYSQL</span>
               <div class="project-links">
-                <a class="project-link" href="https://dbviewer.emerginary.com/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Live</a>
-                <a class="project-link" href="https://github.com/twok-teks/Comany-Database-Project" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a class="project-link" href="https://dbviewer.emerginary.com/" target="_blank" rel="noopener"><i
+                    class="fa-solid fa-globe"></i> Live</a>
+                <a class="project-link" href="https://github.com/twok-teks/Comany-Database-Project" target="_blank"
+                  rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
               </div>
             </article>
           </div>
@@ -1993,16 +2090,21 @@
               </p>
 
               <div class="contact-actions">
-                <a class="btn btn-primary" href="mailto:vnqkhanh02@gmail.com"><i class="fa-solid fa-envelope"></i> EMAIL ME</a>
-                <a class="btn btn-secondary" href="Khanh_Van_Resume.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file"></i> RESUME</a>
+                <a class="btn btn-primary" href="mailto:vnqkhanh02@gmail.com"><i class="fa-solid fa-envelope"></i> EMAIL
+                  ME</a>
+                <a class="btn btn-secondary" href="Khanh_Van_Resume.pdf" target="_blank" rel="noopener"><i
+                    class="fa-solid fa-file"></i> RESUME</a>
               </div>
 
               <div style="height:20px;"></div>
-              
+
               <div class="social-row">
-                <a class="social-link" href="https://github.com/twok-teks" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                <a class="social-link" href="mailto:vnqkhanh02@gmail.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-                <a class="social-link" href="https://www.linkedin.com/in/vnqkhanh/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a class="social-link" href="https://github.com/twok-teks" target="_blank" rel="noopener"
+                  aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a class="social-link" href="mailto:vnqkhanh02@gmail.com" aria-label="Email"><i
+                    class="fa-solid fa-envelope"></i></a>
+                <a class="social-link" href="https://www.linkedin.com/in/vnqkhanh/" target="_blank" rel="noopener"
+                  aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
               </div>
             </div>
 
@@ -2010,17 +2112,20 @@
               <article class="contact-card">
                 <h4>PERSONAL SITE</h4>
                 <p>Use this redesign as the new visual direction for twok-teks.</p>
-                <span class="tag"><a href="https://twok-teks.space/" target="_blank" rel="noopener">twok-teks.space</a></span>
+                <span class="tag"><a href="https://twok-teks.space/" target="_blank"
+                    rel="noopener">twok-teks.space</a></span>
               </article>
               <article class="contact-card">
                 <h4>GITHUB</h4>
                 <p>Projects, experiments, and whatever side quest gets built next.</p>
-                <span class="tag"><a href="https://github.com/twok-teks" target="_blank" rel="noopener">@twok-teks</a></span>
+                <span class="tag"><a href="https://github.com/twok-teks" target="_blank"
+                    rel="noopener">@twok-teks</a></span>
               </article>
               <article class="contact-card">
                 <h4>LINKEDIN</h4>
                 <p>Professional updates, experience highlights, and career journey milestones.</p>
-                <span class="tag"><a href="https://www.linkedin.com/in/vnqkhanh/" target="_blank" rel="noopener">linkedin.com/in/vnqkhanh</a></span>
+                <span class="tag"><a href="https://www.linkedin.com/in/vnqkhanh/" target="_blank"
+                    rel="noopener">linkedin.com/in/vnqkhanh</a></span>
               </article>
               <article class="contact-card">
                 <h4>EMAIL</h4>
@@ -2051,16 +2156,42 @@
 
   <script>
     const bootOverlay = document.getElementById('bootOverlay');
+    const navToggle = document.getElementById('navToggle');
+    const siteNav = document.getElementById('siteNav');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('main .section');
+    const achievement = document.getElementById('achievement');
+    const achievementTitle = document.getElementById('achievementTitle');
+    const achievementText = document.getElementById('achievementText');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    const terminalOutput = document.getElementById('terminalOutput');
+    const rerunTerminal = document.getElementById('rerunTerminal');
+    const navbar = document.getElementById('topbar');
+
+    let lastScrollTop = 0;
+    let achievementTimer;
+    const shownAchievements = new Set();
+
     window.addEventListener('load', () => {
       setTimeout(() => bootOverlay.classList.add('hidden'), 2200);
       runTerminal();
     });
 
-    const navToggle = document.getElementById('navToggle');
-    const siteNav = document.getElementById('siteNav');
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (currentScroll > lastScrollTop && currentScroll > 80) {
+        navbar.classList.add('hide-nav');
+      } else {
+        navbar.classList.remove('hide-nav');
+      }
+
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    });
+
     navToggle.addEventListener('click', () => siteNav.classList.toggle('open'));
 
-    const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
         siteNav.classList.remove('open');
@@ -2072,12 +2203,6 @@
       document.body.classList.add('glitch');
       setTimeout(() => document.body.classList.remove('glitch'), 420);
     }
-
-    const sections = document.querySelectorAll('main .section');
-    const achievement = document.getElementById('achievement');
-    const achievementTitle = document.getElementById('achievementTitle');
-    const achievementText = document.getElementById('achievementText');
-    const shownAchievements = new Set();
 
     const achievementMap = {
       home: ['Player 1 Spawned', 'Portfolio loaded successfully.'],
@@ -2104,7 +2229,6 @@
 
     sections.forEach(section => observer.observe(section));
 
-    let achievementTimer;
     function showAchievement(title, text) {
       achievementTitle.textContent = title;
       achievementText.textContent = text;
@@ -2112,9 +2236,6 @@
       clearTimeout(achievementTimer);
       achievementTimer = setTimeout(() => achievement.classList.remove('show'), 2800);
     }
-
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
 
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
@@ -2129,9 +2250,6 @@
         showAchievement('Filter Switched', `${button.textContent} projects loaded.`);
       });
     });
-
-    const terminalOutput = document.getElementById('terminalOutput');
-    const rerunTerminal = document.getElementById('rerunTerminal');
 
     const terminalLines = [
       '> initializing master\'s research route...',
@@ -2169,4 +2287,5 @@
     });
   </script>
 </body>
+
 </html>
