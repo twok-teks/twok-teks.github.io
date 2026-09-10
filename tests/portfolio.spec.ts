@@ -136,7 +136,7 @@ test("project links open the published case studies and verified destinations", 
     if (project.slug === "fall-foliage") {
       await expect(
         page.getByRole("link", { name: /^Try the project/ }),
-      ).toHaveCount(0);
+      ).toHaveAttribute("href", "https://fall-foliage-ml-model.vercel.app");
     }
   }
 });

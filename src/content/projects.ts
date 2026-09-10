@@ -100,7 +100,7 @@ export const projects: Project[] = [
       "A machine learning app that estimates fall-color timing from weather and daylight inputs.",
     year: "2025",
     role: "Modeling & application development",
-    status: "Source available",
+    status: "Live",
     featured: true,
     kind: "applied-ml",
     problem:
@@ -111,6 +111,7 @@ export const projects: Project[] = [
       "The app supports 17 U.S. locations and returns early-, mid-, or late-month windows for three foliage stages from September through November.",
     technologies: ["Python", "scikit-learn", "Flask", "pandas", "NumPy"],
     github: "https://github.com/twok-teks/Fall_Foliage_ML_Model",
+    demo: "https://fall-foliage-ml-model.vercel.app",
     media: [
       {
         type: "image",
