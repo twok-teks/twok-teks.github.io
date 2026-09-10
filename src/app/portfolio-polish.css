@@ -1,0 +1,533 @@
+.hero-handle {
+  font: 0.625rem var(--font-mono);
+  color: var(--muted);
+  letter-spacing: 0.035em;
+}
+.home-selected-projects {
+  margin-top: 30px;
+}
+.publication-actions,
+.project-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.project-evidence {
+  margin-top: 16px;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--ink);
+  border-left: 2px solid var(--line);
+  padding-left: 13px;
+}
+.project-actions .text-link {
+  font-size: 0.75rem;
+}
+.project-kicker {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.project-kicker .meta-label {
+  font-size: 0.625rem;
+}
+.technology-list {
+  font-size: 0.6875rem;
+}
+.project-secondary {
+  min-width: 0;
+}
+.project-secondary .project-story {
+  padding: 22px 0 0;
+}
+.project-secondary .project-kicker {
+  margin-bottom: 12px;
+}
+.project-secondary h3 {
+  font-size: 1.5rem;
+}
+.project-secondary h3 .icon {
+  width: 18px;
+  margin-top: 3px;
+}
+.project-secondary .project-summary {
+  font-size: 0.875rem;
+  margin-top: 12px;
+}
+.project-secondary .project-evidence {
+  font-size: 0.8125rem;
+}
+.project-secondary .project-media {
+  min-height: 248px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.project-secondary .portfolio-media {
+  min-height: 300px;
+}
+.project-illustration {
+  color: var(--ink);
+  position: relative;
+  min-height: 248px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 54px 24px 48px;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.illustration-label {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font: 0.5rem var(--font-mono);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.illustration-caption {
+  position: absolute;
+  bottom: 18px;
+  left: 20px;
+  right: 20px;
+  font: 0.5rem var(--font-mono);
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: center;
+}
+.gitguide-illustration {
+  background-color: #eaf0f7;
+  min-height: 400px;
+}
+[data-theme="dark"] .gitguide-illustration {
+  background-color: #1b2532;
+}
+.gitguide-diagram {
+  width: min(100%, 390px);
+}
+.diagram-wordmark {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding-inline: 16px;
+}
+.diagram-wordmark > .icon {
+  color: var(--accent);
+}
+.diagram-wordmark > span {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.diagram-wordmark strong {
+  font-size: 1.125rem;
+  font-weight: 550;
+  color: var(--ink);
+  letter-spacing: -0.035em;
+}
+.git-branch-diagram {
+  width: 100%;
+  height: auto;
+  margin-block: 26px 20px;
+  overflow: visible;
+}
+.git-main-line {
+  stroke: #7b879a;
+  stroke-width: 2;
+  fill: none;
+}
+.git-topic-line {
+  stroke: var(--accent);
+  stroke-width: 2;
+  fill: none;
+}
+.git-main-node {
+  fill: var(--surface-raised);
+  stroke: #7b879a;
+  stroke-width: 2;
+}
+.git-topic-node {
+  fill: var(--accent);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.git-branch-diagram text {
+  fill: var(--muted);
+  font: 9px var(--font-mono);
+}
+.git-assistant-note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: 13px 16px;
+  border-radius: 7px;
+  margin-inline: 12px;
+}
+.assistant-spark {
+  color: var(--accent);
+  font-size: 1.4rem;
+}
+.git-assistant-note > p {
+  font-size: 0.75rem;
+  line-height: 1.65;
+  flex: 1;
+}
+.git-assistant-note > p > span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.6875rem;
+}
+.foliage-illustration {
+  background-color: #f3eee5;
+}
+[data-theme="dark"] .foliage-illustration {
+  background-color: #28251e;
+}
+.foliage-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 440px;
+}
+.weather-inputs {
+  display: grid;
+  gap: 5px;
+}
+.weather-inputs > span {
+  display: block;
+  padding: 5px 8px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  font: 0.5625rem var(--font-mono);
+  color: var(--muted);
+  border-radius: 3px;
+}
+.flow-connector {
+  height: 1px;
+  min-width: 15px;
+  flex: 1;
+  max-width: 45px;
+  background: #b9a68b;
+}
+.foliage-leaf {
+  height: 60px;
+  width: 60px;
+  border: 1px solid #bba685;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: #e8dcc4;
+  flex-shrink: 0;
+}
+.foliage-leaf svg {
+  width: 46px;
+  height: 46px;
+  stroke: #795b31;
+  stroke-width: 1.5;
+}
+.foliage-result {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  padding: 11px 14px;
+  border-radius: 4px;
+}
+.foliage-result strong {
+  font-weight: 550;
+}
+[data-theme="dark"] .foliage-leaf {
+  background: #4c402a;
+  border-color: #89704b;
+}
+[data-theme="dark"] .foliage-leaf svg {
+  stroke: #d4b983;
+}
+.research-illustration {
+  background-color: #eeedf4;
+}
+[data-theme="dark"] .research-illustration {
+  background-color: #242331;
+}
+.research-statement {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  font-size: clamp(0.8125rem, 1.3vw, 1.125rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+.not-equal {
+  font-size: 2.25rem;
+  font-weight: 350;
+  color: var(--muted);
+}
+.research-pipeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+  font: 0.5625rem var(--font-mono);
+  color: var(--muted);
+}
+.research-pipeline .detector-label {
+  padding: 7px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+}
+.case-study-media .project-illustration {
+  min-height: 320px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.site-footer {
+  padding-bottom: 60px;
+}
+@media (max-width: 800px) {
+  .gitguide-illustration {
+    min-height: 355px;
+  }
+}
+@media (max-width: 640px) {
+  .hero-handle {
+    font-size: 0.5rem;
+  }
+  .home-selected-projects {
+    margin-top: 21px;
+  }
+  .project-illustration {
+    padding-inline: 18px;
+  }
+  .gitguide-illustration {
+    min-height: 355px;
+  }
+  .project-secondary .project-media {
+    min-height: 224px;
+  }
+  .project-secondary h3 {
+    font-size: 1.375rem;
+  }
+  .project-actions {
+    gap: 20px;
+  }
+  .illustration-label {
+    font-size: 0.4375rem;
+  }
+  .illustration-caption {
+    font-size: 0.4375rem;
+  }
+  .diagram-wordmark {
+    padding-inline: 8px;
+    gap: 10px;
+  }
+  .diagram-wordmark strong {
+    font-size: 1rem;
+  }
+  .git-assistant-note {
+    margin-inline: 4px;
+    padding-inline: 12px;
+  }
+  .foliage-leaf {
+    width: 52px;
+    height: 52px;
+  }
+  .foliage-result {
+    font-size: 0.6875rem;
+    padding: 9px;
+  }
+  .research-statement {
+    gap: 10px;
+    font-size: 0.8125rem;
+    flex-wrap: wrap;
+  }
+  .research-pipeline {
+    gap: 9px;
+  }
+}
+
+/* Project media galleries */
+.project-gallery {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.project-gallery-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px), var(--surface);
+  background-size: 24px 24px;
+}
+.project-gallery-stage > img,
+.project-gallery-stage > video,
+.project-gallery-stage > iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.project-gallery-stage > img,
+.project-gallery-stage > video {
+  object-fit: contain;
+}
+.project-gallery-stage > iframe {
+  display: block;
+  background: #fff;
+}
+.project-gallery-preview .project-gallery-stage > iframe {
+  pointer-events: none;
+}
+.project-gallery figcaption {
+  min-height: 48px;
+  padding: 13px 18px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.7;
+}
+.project-gallery-controls {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  box-shadow: 0 5px 18px rgb(0 0 0 / 12%);
+  backdrop-filter: blur(8px);
+}
+.project-gallery-controls button {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--ink);
+}
+.project-gallery-controls button:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.project-gallery-controls > span {
+  min-width: 94px;
+  color: var(--muted);
+  font: 0.5625rem var(--font-mono);
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+.project-flagship > .project-gallery {
+  border: 0;
+  border-right: 1px solid var(--line);
+  border-radius: 0;
+}
+.project-flagship > .project-gallery .project-gallery-stage {
+  height: 100%;
+  min-height: 390px;
+  aspect-ratio: auto;
+}
+.project-secondary .project-gallery {
+  min-height: 0;
+}
+.case-study-media .project-gallery-stage {
+  aspect-ratio: 16 / 9;
+  min-height: 520px;
+}
+.case-study-media .project-gallery figcaption {
+  padding-inline: 22px;
+}
+@media (max-width: 800px) {
+  .project-flagship > .project-gallery {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .project-flagship > .project-gallery .project-gallery-stage {
+    min-height: 0;
+    aspect-ratio: 16 / 10;
+  }
+  .case-study-media .project-gallery-stage {
+    min-height: 420px;
+  }
+}
+@media (max-width: 640px) {
+  .project-gallery-controls {
+    right: 9px;
+    bottom: 9px;
+  }
+  .project-gallery-controls > span {
+    min-width: 78px;
+    font-size: 0.5rem;
+  }
+  .project-gallery-controls button {
+    width: 40px;
+    height: 40px;
+  }
+  .project-gallery figcaption {
+    padding-inline: 14px;
+    font-size: 0.6875rem;
+  }
+  .case-study-media .project-gallery-stage {
+    min-height: 300px;
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.project-pdf-page {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 14px;
+  overflow: hidden;
+  background: #3a3b3e;
+}
+.project-pdf-page canvas {
+  display: block;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  background: white;
+  box-shadow: 0 5px 22px rgb(0 0 0 / 24%);
+}
+.project-pdf-page > span,
+.project-pdf-page > a {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  background: rgb(20 21 23 / 88%);
+  color: #f7f7f5;
+  font: 0.5625rem var(--font-mono);
+}
+.project-pdf-page[data-status="ready"] > span {
+  display: none;
+}

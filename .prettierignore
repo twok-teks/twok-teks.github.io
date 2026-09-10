@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+package-lock.json
+next-env.d.ts
+playwright-report
+test-results
+*.tsbuildinfo
+
+.artifacts
