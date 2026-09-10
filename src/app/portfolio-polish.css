@@ -477,12 +477,21 @@
 }
 @media (max-width: 640px) {
   .project-gallery-controls {
-    right: 9px;
+    right: auto;
     bottom: 9px;
+    left: 9px;
+    width: min(174px, calc(100% - 18px));
+    max-width: calc(100% - 18px);
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr) 40px;
   }
   .project-gallery-controls > span {
-    min-width: 78px;
+    min-width: 0;
+    overflow: hidden;
     font-size: 0.5rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .project-gallery-controls button {
     width: 40px;
