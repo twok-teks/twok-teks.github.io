@@ -15,17 +15,19 @@ Open http://localhost:3000. For production, run `npm run build` then `npm start`
 
 ## Connect Khanh’s Clone
 
-An ignored `.env.local` template is provided. Replace its placeholder with your real Groq key:
+Copy `.env.example` to `.env.local` and replace its placeholder with your real Groq key:
 
 ```dotenv
 NEXT_PUBLIC_SITE_URL=https://twok-teks.space
 GROQ_API_KEY=your_groq_api_key_here
-GROQ_MODEL=groq/compound-mini
+GROQ_MODEL=openai/gpt-oss-120b
 ```
 
-Restart the server after changing these values. On a deployed host, set the same environment variables in the host’s settings. The key stays on the server; never prefix it with `NEXT_PUBLIC_`.
+Restart the server after changing these values. On a deployed host, set the same environment variables in the host’s settings and redeploy. `GROQ_MODEL` is optional and defaults to `openai/gpt-oss-120b` when unset or blank. If an existing deployment still sets `GROQ_MODEL=groq/compound-mini`, update or remove that override so it uses the new model. The key stays on the server; never prefix it with `NEXT_PUBLIC_`.
 
-Without a real key, the assistant shows a connection message rather than inventing an answer. Automated tests mock Groq; they do not establish live-provider answer quality. The integration uses [Groq Chat Completions](https://console.groq.com/docs/api-reference) and [Compound Mini](https://console.groq.com/docs/compound/systems/compound-mini).
+Without a real key, the assistant shows a connection message rather than inventing an answer. Automated tests mock Groq; they do not establish live-provider answer quality. The integration uses [Groq Chat Completions](https://console.groq.com/docs/api-reference) and [OpenAI GPT-OSS 120B hosted by Groq](https://console.groq.com/docs/model/openai/gpt-oss-120b), with the same `GROQ_API_KEY`.
+
+GPT-OSS requests use JSON object mode, low reasoning effort, and a 4,096-token completion budget to leave room for reasoning and the final answer. [Reasoning is excluded from the response](https://console.groq.com/docs/reasoning) with `include_reasoning: false`; tools remain disabled. Other configured chat models retain the generic request settings without GPT-OSS-specific reasoning parameters.
 
 The circular robot button opens a nonmodal panel. Visitors can continue using the site while it is open. The panel, draft, scroll position, and full conversation persist across routes, minimization, and reloads in the same tab using `sessionStorage`. **New session** clears them and cancels any pending reply. A new browser tab starts its own session. If storage is unavailable, memory persists for the current page lifetime.
 

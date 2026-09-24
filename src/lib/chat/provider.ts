@@ -2,7 +2,7 @@ import { SYSTEM_POLICY } from "./policy";
 import type { ChatMessage, SourceDocument } from "./types";
 
 export const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
-export const DEFAULT_GROQ_MODEL = "groq/compound-mini";
+export const DEFAULT_GROQ_MODEL = "openai/gpt-oss-120b";
 
 export function isConfiguredApiKey(key: string | undefined): key is string {
   return Boolean(
@@ -19,6 +19,9 @@ export function createProviderPayload(
   messages: ChatMessage[],
   documents: SourceDocument[],
 ) {
+  const isGptOss =
+    model === "openai/gpt-oss-120b" || model === "openai/gpt-oss-20b";
+
   return {
     model,
     messages: [
@@ -37,8 +40,14 @@ export function createProviderPayload(
     ],
     response_format: { type: "json_object" },
     tool_choice: "none",
-    max_completion_tokens: 1_200,
+    // GPT-OSS shares its completion budget between reasoning and the final JSON.
+    max_completion_tokens: isGptOss ? 4_096 : 1_200,
     temperature: 0.2,
+    // Groq's GPT-OSS models use include_reasoning, not reasoning_format.
+    ...(isGptOss && {
+      reasoning_effort: "low",
+      include_reasoning: false,
+    }),
   };
 }
 

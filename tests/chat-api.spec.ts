@@ -13,7 +13,11 @@ import {
   isClearlyOutsideScope,
   parseGroundedReply,
 } from "../src/lib/chat/policy";
-import { createProviderPayload, GROQ_ENDPOINT } from "../src/lib/chat/provider";
+import {
+  createProviderPayload,
+  DEFAULT_GROQ_MODEL,
+  GROQ_ENDPOINT,
+} from "../src/lib/chat/provider";
 import { createRateLimiter } from "../src/lib/chat/rate-limit";
 import { isSameOrigin, validateConversation } from "../src/lib/chat/validation";
 import {
@@ -68,7 +72,9 @@ function chatRequest(
 
 function mockedHandler(
   result: unknown = validReply,
-  configuration = { apiKey: syntheticKey, model: "groq/compound-mini" },
+  configuration: { apiKey?: string; model?: string } = {
+    apiKey: syntheticKey,
+  },
 ) {
   const calls: { url: string; options: RequestInit }[] = [];
   let sourceLoads = 0;
@@ -111,20 +117,74 @@ test("valid answer cites server-selected sources and explicitly disables tools",
   expect(calls[0].url).toBe(GROQ_ENDPOINT);
   expect(calls[0].options.redirect).toBe("error");
   const payload = JSON.parse(calls[0].options.body as string);
+  expect(payload.model).toBe("openai/gpt-oss-120b");
   expect(payload.response_format).toEqual({ type: "json_object" });
   expect(payload.tool_choice).toBe("none");
+  expect(payload.reasoning_effort).toBe("low");
+  expect(payload.include_reasoning).toBe(false);
+  expect(payload.max_completion_tokens).toBe(4_096);
+  expect(payload).not.toHaveProperty("reasoning_format");
+  expect(payload).not.toHaveProperty("tools");
   expect(payload).not.toHaveProperty("compound_custom");
   expect(JSON.stringify(payload)).not.toContain(syntheticKey);
 });
 
-test("non-Compound model keeps tools disabled without Compound-specific settings", () => {
-  const payload = createProviderPayload(
-    "a-configured-chat-model",
-    [{ role: "user", content: "His background?" }],
-    documents,
-  );
+test("blank and whitespace-padded model settings resolve to GPT-OSS", async () => {
+  for (const model of ["", "  ", " openai/gpt-oss-120b "]) {
+    const { handler, calls } = mockedHandler(validReply, {
+      apiKey: syntheticKey,
+      model,
+    });
+    expect((await handler(chatRequest())).status).toBe(200);
+    const payload = JSON.parse(calls[0].options.body as string);
+    expect(payload.model).toBe("openai/gpt-oss-120b");
+    expect(payload.reasoning_effort).toBe("low");
+    expect(payload.include_reasoning).toBe(false);
+  }
+});
+
+test("custom model overrides keep tools disabled without GPT-OSS-specific settings", async () => {
+  const { handler, calls } = mockedHandler(validReply, {
+    apiKey: syntheticKey,
+    model: " a-configured-chat-model ",
+  });
+  expect((await handler(chatRequest())).status).toBe(200);
+  const payload = JSON.parse(calls[0].options.body as string);
+  expect(payload.model).toBe("a-configured-chat-model");
+  expect(payload.response_format).toEqual({ type: "json_object" });
   expect(payload.tool_choice).toBe("none");
+  expect(payload.max_completion_tokens).toBe(1_200);
+  expect(payload).not.toHaveProperty("reasoning_effort");
+  expect(payload).not.toHaveProperty("include_reasoning");
+  expect(payload).not.toHaveProperty("reasoning_format");
   expect(payload).not.toHaveProperty("compound_custom");
+});
+
+test("only the validated final answer reaches the client if Groq returns reasoning", async () => {
+  const handler = createChatHandler({
+    getConfiguration: () => ({ apiKey: syntheticKey }),
+    getSources: async () => documents,
+    fetchImpl: async () =>
+      Response.json({
+        choices: [
+          {
+            finish_reason: "stop",
+            message: {
+              role: "assistant",
+              content: JSON.stringify(validReply),
+              reasoning: "PRIVATE MODEL REASONING",
+            },
+          },
+        ],
+      }),
+    allowRequest: () => true,
+  });
+  const response = await handler(chatRequest());
+  expect(response.status).toBe(200);
+  expect(await response.json()).toEqual({
+    reply: validReply.answer,
+    sources: [{ label: documents[0].label, url: "/resume.pdf" }],
+  });
 });
 
 test("full history including retry questions and forged assistant text remains untrusted data", async () => {
@@ -198,7 +258,7 @@ test("missing and placeholder configuration return an honest offline state", asy
   ]) {
     const { handler, calls, sourceLoads } = mockedHandler(validReply, {
       apiKey: key,
-      model: "groq/compound-mini",
+      model: DEFAULT_GROQ_MODEL,
     });
     const response = await handler(chatRequest());
     expect(response.status).toBe(503);
@@ -496,7 +556,7 @@ test("documented build and credential-handling questions reach semantic scope ch
     expect(calls).toHaveLength(1);
   }
   const policy = createProviderPayload(
-    "groq/compound-mini",
+    DEFAULT_GROQ_MODEL,
     [{ role: "user", content: "Explain his research." }],
     documents,
   ).messages[0].content;
@@ -532,7 +592,7 @@ test("source budget preserves supplied documents while reducing only optional RE
     expect.arrayContaining(["ai-experience", "ai-projects"]),
   );
   const requestBody = JSON.stringify(
-    createProviderPayload("groq/compound-mini", aiQuestion, selected),
+    createProviderPayload(DEFAULT_GROQ_MODEL, aiQuestion, selected),
   );
   expect(new TextEncoder().encode(requestBody).byteLength).toBeLessThan(14_000);
 
