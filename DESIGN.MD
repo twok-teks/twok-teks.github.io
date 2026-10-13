@@ -1,55 +1,59 @@
 # Portfolio design system
 
-## Repository audit
-
-The supplied workspace was empty on 2026-09-07. There was no previous design document, application, verified biography, resume, project content, or imagery. This is a greenfield implementation using Next.js App Router, React, TypeScript, and plain CSS. Do not infer identity, employers, degrees, publications, achievements, or personal interests from examples in the brief.
-
 ## Direction
 
-A technical editorial portfolio with the care of a small software product. Calm, precise, human, and work-first. Typography, alignment, whitespace, and separators provide hierarchy. Cards are reserved for project media and interactive modules. Never use decorative floating objects, animated backgrounds, stock AI imagery, fabricated product screenshots, skill ratings, or a full-screen hero.
+A compact, personal introduction with warm paper, strong typography, and a playful daisy. Retain the existing Next.js App Router, TypeScript, plain CSS, local Inter font, verified content, and assistant. No new dependencies.
+
+## Visual identity
+
+| Token           | Light   | Dark    |
+| --------------- | ------- | ------- |
+| Paper           | #f7f5ef | #20221f |
+| Surface         | #eeece4 | #292c26 |
+| Ink             | #292b26 | #f0eee5 |
+| Secondary text  | #68695e | #b1b2a5 |
+| Forest / sage   | #53664e | #b2c5a4 |
+| Walnut / copper | #84694f | #c3a687 |
+| Border          | #deddd2 | #3e4237 |
+
+Use an 860px maximum column, 20px phone gutters, and generous spacing. Locally hosted Inter provides bold headings (720–780 weight) and readable body copy. Contrast selected phrases with italic system serif lettering. Avoid decorative periods in headings, short descriptions, and résumé bullets. Preserve punctuation needed by technical explanations and abbreviations.
+
+Always render the original daisy asset in both themes, without inversion, grayscale, tinting, or other image filters. Its white petals and yellow center are part of the identity.
 
 ## Information architecture
 
-Routes: `/`, `/projects`, `/projects/[slug]`, `/experience`, `/about`. The home sequence is hero, selected work, additional projects, experience, short story, publications (when supplied), and education (when supplied). Main navigation has Projects, Experience, About; the wordmark returns Home. Resume and theme are utility actions. Missing resume information is clearly unavailable, never linked to a fabricated destination.
+- Home: a short introduction with name, current role, graduate study, résumé download and an Experience link, and one off-screen line
+- Projects: responsive two-column collection, category filters, and links to complete case studies
+- Experience: professional roles, research, education, and earned certifications if supplied
+- Project details: source/demo/report links, screenshot or PDF galleries, technical narrative, limitations, and results
+- Former About links permanently redirect to Home; the sitemap and chat source links point to Home
+
+Do not restore professional-experience lists, project cards, or education sections to the homepage. Longer personal notes remain in the centralized content for the assistant. Keep the visible homepage under roughly 75 words.
+
+## Interactions
+
+The latest direction allows a small playful interaction in addition to the existing project hover and route fades:
+
+- The homepage daisy leans toward mouse movement and spins on click, tap, or keyboard activation
+- Pointer updates use requestAnimationFrame only while events arrive; no idle loop, custom cursor, or particles
+- Fine-pointer motion is disabled for touch/coarse devices and reduced-motion preferences
+- Reduced motion removes the spin transition and all other animations
+- Project cards retain their faint pointer highlight and single native link
+- Page navigation uses a 180ms arrival fade without delaying navigation
+- The assistant offers a “Learn more about Khanh?” invitation after 1.4 seconds, without opening chat or sending a request
+- The invitation can open chat or be dismissed; dismissal persists for the tab and does not steal focus on appearance
+- Chat conversation, draft, and scroll continue to persist across navigation
+
+## Theme, accessibility, and media
+
+Resolve system/manual theme before paint and persist preferences. Use semantic landmarks, one h1 per page, visible focus, a skip link, native controls, and keyboard-operable menus/disclosures. Preserve actual screenshots, research PDF, résumé, metadata, and canonical URLs.
+
+Use static project previews on overview pages and interactive galleries inside case studies. Keep the research text cover so overview pages do not load the PDF renderer.
 
 ## Content integrity
 
-Typed content lives in `src/content`. Verified content now comes from the owner-supplied resume and April 2026 research report, public GitHub source, and the existing personal site. Unfilled project examples must be explicitly marked as content placeholders, never presented as accomplishments or included in published structured data. Empty career and personal content has intentional preview states. Missing identity/domain keep search indexing disabled. All future metrics and confidential material require a public source supplied by the owner.
+Professional and project facts remain grounded in existing owner-supplied material. No earned credentials were found: certifications.ts stays empty until verified entries are supplied, and its Experience section stays hidden. Internal RAG work remains at the public résumé-summary level. Do not invent details, implementation status, screenshots, or credentials for internal work or the “What Happened?” concept.
 
-## Tokens and typography
+## Verification
 
-- Font: locally hosted Inter variable; monospace system font only for tiny indexes and metadata.
-- Light: paper `#fafaf9`, text `#191b20`, muted `#62656e`, border `#dedfdf`, surface `#f1f2f1`, blue `#2855d9`.
-- Dark: paper `#141517`, text `#edeef0`, muted `#a1a4ad`, border `#32343a`, surface `#1c1e22`, daisy yellow `#ffea60`.
-- Body 16px, line height 1.65; prose 17–18px; metadata 11–13px; section titles 30–40px; fluid hero 42–68px with slightly tight tracking.
-- Main container 1160px; reading column 720px. Gutters 20px mobile, 32px tablet, 40px desktop.
-- Spacing scale: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 104px.
-- Radius 6px controls, 10px media; no resting drop shadows on content.
-
-## Surfaces and technical paper
-
-Use a stationary 40px grid only in the hero and project-media areas. Lines have very low neutral opacity and a radial fade. Tune light and dark independently. Prose stays on quiet paper. Tiny index marks and crosshairs may establish structure; each should support orientation. Blue is used for links, selected states, focus, and small accents in light mode; the daisy yellow fills the same role in dark mode.
-
-## Layout and project hierarchy
-
-Navigation is 64px and sticky with a fine bottom border. Hero stays compact enough for selected work to begin within a laptop's initial viewport. Featured work has a wide media area and a concise project story: problem, contribution, evidence, technologies, and real links. Use at most three featured projects and 3–5 preview technologies. Additional work, employment, education, and bibliography use rows, not repeated cards. Case-study prose is narrower than media and includes context, role, constraints, solution, decisions, tradeoffs, results, and learnings only when supported by content.
-
-## Responsive behavior
-
-Validate 375, 390, 768, 1024, 1280, and 1440px. Project columns stack without reordering meaning. Mobile navigation uses an explicit menu with Escape/route close and native focus behavior. Minimum practical target size is 44px. Text, URLs, and tags wrap. At 200% zoom, content and actions remain available without horizontal page overflow.
-
-## Interaction, accessibility, and theme
-
-Use native links/buttons/details, semantic landmarks, one h1 per route, sequential headings, a visible-on-focus skip link, and a 2px focus ring with offset. Information is never hover-only. Use accessible text contrast and text alongside status colors. Transitions are 150–220ms; arrows may move 3px. No perpetual motion or scaling cards. Reduced motion disables smooth scrolling and transitions. Theme starts from system preference, supports persisted light/dark/system selection, responds to system changes, and sets color-scheme/theme-color before paint. Storage failures must not break interaction.
-
-## Media and performance
-
-Server components and static routes by default; client code only for theme, mobile navigation, and meaningful small interactions. CSS/SVG diagrams describe actual implementation or carry an explicit illustrative label. Support responsive images with dimensions, opt-in video with controls, code, and captions. No autoplay, invented screenshots, heavy animation dependency, or remotely loaded runtime font. Reserve media aspect ratios to prevent layout shifts.
-
-## Metadata and validation
-
-Each route has a title and description; each real project has a share preview. Configure canonical URL, sitemap, robots, and Person structured data only with a real owner/domain. Add a favicon and social preview. Run formatting, lint, TypeScript, production build, and meaningful browser checks for navigation, themes, keyboard, reduced motion, missing routes, responsive overflow, and accessibility. Record any remaining content prerequisites in README.
-
-## Khanh’s Clone
-
-The persistent assistant is mounted once in the root layout. A circular robot control opens a nonmodal panel at the lower right, matching the site themes. It must leave the page usable, preserve conversation/draft/scroll across route changes and minimization, and reset only through New session within a tab. Source-grounded answers stay limited to Khanh’s documented work and background. Groq credentials stay server-side. Use concise answers, verified source links, explicit pending/error states, keyboard controls, and a readable mobile layout.
+Run ESLint, TypeScript, production build, changed-file formatting, and Playwright. Cover 375–1440px widths, doubled text, theme persistence, unchanged daisy rendering, mouse/touch/keyboard interactions, reduced motion, invitation dismissal, redirects, galleries, chat persistence, and accessibility. Wait for arrival fades to settle before measuring contrast.

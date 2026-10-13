@@ -7,7 +7,7 @@ type SocialImageProps = {
   footer?: string;
 };
 
-/** Shared composition for Next.js ImageResponse; no browser or font requests. */
+/** Warm editorial composition for Next.js ImageResponse, with no font requests. */
 export function SocialImage({
   title,
   description,
@@ -19,73 +19,25 @@ export function SocialImage({
       style={{
         display: "flex",
         flexDirection: "column",
-        position: "relative",
         width: "100%",
         height: "100%",
-        background: "#fafaf9",
-        color: "#191b20",
+        background: "#f7f5ef",
+        color: "#292b26",
         padding: "52px 64px",
         fontFamily: "sans-serif",
       }}
     >
       <div
         style={{
-          position: "absolute",
           display: "flex",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        {Array.from({ length: 31 }, (_, index) => (
-          <div
-            key={`vertical-${index}`}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: index * 40,
-              height: "100%",
-              width: 1,
-              background: "#eceeed",
-            }}
-          />
-        ))}
-        {Array.from({ length: 16 }, (_, index) => (
-          <div
-            key={`horizontal-${index}`}
-            style={{
-              position: "absolute",
-              top: index * 40,
-              left: 0,
-              height: 1,
-              width: "100%",
-              background: "#eceeed",
-            }}
-          />
-        ))}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
           justifyContent: "space-between",
-          width: "100%",
-          fontSize: 23,
+          alignItems: "center",
+          borderBottom: "1px solid #deddd2",
+          paddingBottom: 24,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <span
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: 2,
-              background: "#2855d9",
-            }}
-          />
-          <span>{site.name}</span>
-        </div>
-        <span style={{ color: "#62656e", fontSize: 18 }}>{label}</span>
+        <span style={{ fontSize: 24 }}>{site.name}</span>
+        <span style={{ fontSize: 18, color: "#53664e" }}>{label}</span>
       </div>
       <div
         style={{
@@ -93,16 +45,16 @@ export function SocialImage({
           flexDirection: "column",
           justifyContent: "center",
           flex: 1,
-          width: "100%",
         }}
       >
         <div
           style={{
             display: "flex",
+            fontFamily: "serif",
             fontSize: title.length > 55 ? 58 : 72,
-            fontWeight: 700,
-            lineHeight: 1.08,
-            letterSpacing: "-3px",
+            fontWeight: 400,
+            lineHeight: 1.1,
+            letterSpacing: "-2px",
             maxWidth: 1000,
           }}
         >
@@ -111,11 +63,11 @@ export function SocialImage({
         <div
           style={{
             display: "flex",
-            fontSize: 25,
+            fontSize: 24,
             lineHeight: 1.5,
-            color: "#62656e",
-            marginTop: 25,
-            maxWidth: 880,
+            color: "#68695e",
+            marginTop: 24,
+            maxWidth: 900,
           }}
         >
           {description}
@@ -125,17 +77,14 @@ export function SocialImage({
         style={{
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "center",
-          borderTop: "1px solid #dedfdf",
+          borderTop: "1px solid #deddd2",
           paddingTop: 24,
           fontSize: 18,
-          color: "#62656e",
+          color: "#68695e",
         }}
       >
         <span>{footer}</span>
-        <span>
-          {site.configured ? "Engineering portfolio" : "Content preview"}
-        </span>
+        <span>twok-teks</span>
       </div>
     </div>
   );

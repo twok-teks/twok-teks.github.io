@@ -14,13 +14,7 @@ export default function ProjectsPage() {
   return (
     <div className="container">
       <section className="page-hero">
-        <p className="eyebrow">PROJECTS</p>
-        <h1>
-          Ideas, made tangible<span className="accent">.</span>
-        </h1>
-        <p className="lede">
-          Useful software. Open code. Lessons from building both.
-        </p>
+        <h1>Projects</h1>
       </section>
       <section className="projects-index" aria-label="Project collection">
         <ProjectFilter projects={projects} />

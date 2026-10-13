@@ -31,6 +31,7 @@ type Session = {
 };
 
 const storageKey = "khanh-clone-session-v1";
+const invitationKey = "khanh-clone-invitation-dismissed";
 const emptySession: Session = {
   version: 1,
   id: "",
@@ -299,6 +300,29 @@ export function CloneChat() {
   const followLatest = useRef(true);
   const [announcements, setAnnouncements] = useState<Message[]>([]);
   const [hasNewReply, setHasNewReply] = useState(false);
+  const [showInvitation, setShowInvitation] = useState(false);
+  const invitationDismissed = useRef(false);
+
+  useEffect(() => {
+    if (session.open || invitationDismissed.current) return;
+    try {
+      if (sessionStorage.getItem(invitationKey)) return;
+    } catch {
+      /* The invitation also works without browser storage */
+    }
+    const timer = window.setTimeout(() => setShowInvitation(true), 1400);
+    return () => window.clearTimeout(timer);
+  }, [session.open]);
+
+  function dismissInvitation() {
+    invitationDismissed.current = true;
+    setShowInvitation(false);
+    try {
+      sessionStorage.setItem(invitationKey, "true");
+    } catch {
+      /* Keep the in-memory dismissal */
+    }
+  }
 
   useLayoutEffect(() => {
     const log = transcript.current;
@@ -330,6 +354,7 @@ export function CloneChat() {
   useEffect(() => () => request.current?.abort(), []);
 
   function openChat() {
+    dismissInvitation();
     focusOnOpen.current = true;
     updateSession({ open: true });
   }
@@ -508,7 +533,7 @@ export function CloneChat() {
             <span className="clone-chat-kicker">
               A little context, on demand
             </span>
-            <h3>Get to know the work.</h3>
+            <h3>Get to know the work</h3>
             <p>
               Ask about Khanh’s projects, résumé, and GitHub work. I’ll stick to
               that material and say when something isn’t covered.
@@ -638,6 +663,28 @@ export function CloneChat() {
           </div>
         </form>
       </section>
+      {showInvitation && !session.open && (
+        <div className="clone-chat-invitation">
+          <button
+            type="button"
+            className="clone-chat-invitation-open"
+            onClick={openChat}
+          >
+            Learn more about Khanh? <span aria-hidden="true">↗</span>
+          </button>
+          <button
+            type="button"
+            className="clone-chat-invitation-dismiss"
+            aria-label="Dismiss chat invitation"
+            onClick={() => {
+              dismissInvitation();
+              launcher.current?.focus({ preventScroll: true });
+            }}
+          >
+            <ChatIcon name="close" size={14} />
+          </button>
+        </div>
+      )}
       <button
         ref={launcher}
         type="button"
@@ -651,7 +698,7 @@ export function CloneChat() {
       >
         <ChatIcon name={session.open ? "down" : "robot"} size={25} />
         <span className="clone-chat-launcher-label" aria-hidden="true">
-          Khanh’s Clone
+          Learn more about Khanh?
         </span>
       </button>
       <div

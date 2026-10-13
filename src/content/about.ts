@@ -1,5 +1,10 @@
 import type { About } from "./types";
 
+// Short homepage copy distilled from the owner-supplied résumé and personal notes
+export const homeIntro = {
+  offscreen: "Swimming, trails & story-driven games",
+};
+
 // Sources: owner-supplied nickname story and personal notes.
 export const about: About = {
   intro:

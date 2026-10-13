@@ -32,7 +32,7 @@ export function getStaticPortfolioSources(): SourceDocument[] {
     {
       id: "profile",
       label: "Khanh Van · portfolio",
-      url: "/about",
+      url: "/",
       content: JSON.stringify({
         name: site.name,
         role: site.role,
@@ -95,7 +95,7 @@ export function getStaticPortfolioSources(): SourceDocument[] {
     {
       id: "about",
       label: "About Khanh",
-      url: "/about",
+      url: "/",
       content: JSON.stringify(about),
     },
     {

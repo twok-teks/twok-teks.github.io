@@ -5,7 +5,6 @@ const routes = [
   "/",
   "/projects",
   "/experience",
-  "/about",
   "/projects/git-guide",
   "/projects/fall-foliage",
   "/projects/llm-hallucination-analysis",
@@ -73,7 +72,7 @@ test("primary links navigate to their routes and mark the active page", async ({
   for (const [label, route] of [
     ["Projects", "/projects"],
     ["Experience", "/experience"],
-    ["About", "/about"],
+    ["Home", "/"],
   ]) {
     const link = navigation.getByRole("link", { name: label, exact: true });
     await link.click();
@@ -81,7 +80,10 @@ test("primary links navigate to their routes and mark the active page", async ({
     await expect(link).toHaveAttribute("aria-current", "page");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   }
-  await page.getByRole("banner").getByRole("link", { name: /home/i }).click();
+  await page
+    .getByRole("banner")
+    .getByRole("link", { name: "Khanh Van, home", exact: true })
+    .click();
   await expect(page).toHaveURL(/\/$/);
 });
 
@@ -147,8 +149,9 @@ test("resume and research records link to real PDF documents", async ({
 }) => {
   await page.goto("/");
   await expect(
-    page.getByRole("banner").locator('a[href="/resume.pdf"]'),
+    page.getByRole("main").getByRole("link", { name: /Download résumé/ }),
   ).toBeVisible();
+  await page.goto("/projects/llm-hallucination-analysis");
   await expect(
     page.getByRole("main").getByRole("link", { name: /^Read paper/ }),
   ).toHaveAttribute("href", "/research/hallucination-analysis.pdf");
@@ -168,7 +171,7 @@ test("resume and research records link to real PDF documents", async ({
 
   await page.goto("/experience");
   const research = page.getByRole("region", {
-    name: "Questions worth testing.",
+    name: "Research",
     exact: true,
   });
   const austin = research.locator("details").filter({
@@ -226,13 +229,14 @@ test("project filters show only categories that contain real work", async ({
 test("project image and paper galleries move with labeled controls", async ({
   page,
 }) => {
-  await page.goto("/projects");
+  await page.goto("/projects/git-guide");
   const gitGuide = page.getByLabel("GitGuide media gallery");
   await expect(gitGuide.getByAltText(/GitGuide home page/i)).toBeVisible();
   await gitGuide.getByRole("button", { name: "Next image" }).click();
   await expect(gitGuide.getByAltText(/learning roadmap/i)).toBeVisible();
   await expect(gitGuide).toContainText("IMAGE 02 / 06");
 
+  await page.goto("/projects/llm-hallucination-analysis");
   const paper = page.getByLabel("When LLMs get it wrong media gallery");
   await expect(paper.locator(".project-pdf-page")).toHaveAttribute(
     "data-status",
@@ -255,20 +259,7 @@ test("project image and paper galleries move with labeled controls", async ({
   ).toBeVisible();
 });
 
-test("About tabs and Experience disclosures work from the keyboard", async ({
-  page,
-}) => {
-  await page.goto("/about");
-  const hobbies = page.getByRole("tab", { name: "Away from keys" });
-  await hobbies.focus();
-  await page.keyboard.press("Enter");
-  await expect(hobbies).toHaveAttribute("aria-selected", "true");
-  await expect(page.getByRole("tabpanel")).toContainText("Swimming");
-
-  const midnight = page.getByRole("tab", { name: "12:47 a.m." });
-  await midnight.click();
-  await expect(page.getByRole("tabpanel")).toContainText("imposter syndrome");
-
+test("Experience disclosures work from the keyboard", async ({ page }) => {
   await page.goto("/experience");
   const firstRole = page.locator("details.career-card").first();
   const summary = firstRole.locator("summary");
@@ -278,6 +269,75 @@ test("About tabs and Experience disclosures work from the keyboard", async ({
   await expect(firstRole).not.toHaveAttribute("open");
   await page.keyboard.press("Enter");
   await expect(firstRole).toHaveAttribute("open", "");
+});
+
+test("Home is a compact introduction and former About links redirect there", async ({
+  page,
+}) => {
+  await page.goto("/about");
+  await expect(page).toHaveURL(/\/$/);
+  const main = page.getByRole("main");
+  await expect(main.getByRole("heading", { level: 1 })).toHaveText("Khanh Van");
+  await expect(main).toContainText("SWE @ State Farm");
+  await expect(main).toContainText("M.S. in Computer Science @ UT Austin");
+  await expect(main).not.toContainText("Paycom");
+  await expect(
+    main.getByRole("heading", {
+      name: /Professional experience|Featured projects|Education/,
+    }),
+  ).toHaveCount(0);
+  expect((await main.innerText()).split(/\s+/).length).toBeLessThan(75);
+  await main.getByRole("link", { name: /The path so far/ }).click();
+  await expect(page).toHaveURL(/\/experience$/);
+});
+
+test("the original daisy stays unfiltered in light and dark themes", async ({
+  page,
+}) => {
+  for (const colorScheme of ["light", "dark"] as const) {
+    await page.emulateMedia({ colorScheme });
+    await page.goto("/");
+    const mark = page.locator(".brand-mark");
+    await expect(mark).toBeVisible();
+    await expect(mark).toHaveCSS("filter", "none");
+    await expect
+      .poll(() =>
+        mark.evaluate((image) => (image as HTMLImageElement).naturalWidth),
+      )
+      .toBeGreaterThan(0);
+    await expect(page.locator(".daisy-spin img")).toHaveCSS("filter", "none");
+  }
+});
+
+test("the home daisy follows the pointer and spins from the keyboard", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const daisy = page.getByRole("button", { name: "Spin the daisy" });
+  await daisy.focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator(".daisy-spin")).toHaveAttribute("style", /360deg/);
+  await page.mouse.move(20, 200);
+  await expect
+    .poll(() =>
+      page
+        .locator(".daisy-follow")
+        .evaluate((element) => element.style.getPropertyValue("--daisy-x")),
+    )
+    .not.toBe("");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.mouse.move(500, 300);
+  await expect
+    .poll(() =>
+      page
+        .locator(".daisy-follow")
+        .evaluate((element) => element.style.getPropertyValue("--daisy-x")),
+    )
+    .toBe("0px");
+  await expect(page.locator(".daisy-spin")).toHaveCSS(
+    "transition-duration",
+    "0s",
+  );
 });
 test("skip link moves keyboard focus past navigation", async ({ page }) => {
   await page.goto("/");
@@ -332,7 +392,7 @@ test("theme follows the system and persists light, dark, and system choices", as
     await expect(html).toHaveAttribute("data-theme", resolved);
     await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute(
       "content",
-      resolved === "dark" ? "#141517" : "#fafaf9",
+      resolved === "dark" ? "#20221f" : "#f7f5ef",
     );
     await page.reload();
     await expect(html).toHaveAttribute("data-preference", preference);
@@ -369,12 +429,18 @@ for (const { route, theme } of [
   { route: "/", theme: "dark" },
   { route: "/projects/git-guide", theme: "dark" },
   { route: "/projects/llm-hallucination-analysis", theme: "light" },
-  { route: "/about", theme: "dark" },
+  { route: "/experience", theme: "dark" },
 ] as const) {
   test(`accessible content on ${route} in ${theme} theme`, async ({ page }) => {
     await page.emulateMedia({ colorScheme: theme });
     await page.goto(route);
     await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
+    // Contrast is measured on the settled page, not an intermediate fade frame.
+    await page.locator(".page-transition").evaluate(async (element) => {
+      await Promise.all(
+        element.getAnimations().map((animation) => animation.finished),
+      );
+    });
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
       .analyze();
@@ -387,6 +453,10 @@ test("reduced motion disables smooth scrolling and long transitions", async ({
 }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
+  await expect(page.locator(".page-transition")).toHaveCSS(
+    "animation-name",
+    "none",
+  );
   const motion = await page.evaluate(() => ({
     scroll: getComputedStyle(document.documentElement).scrollBehavior,
     durations: [...document.querySelectorAll("a, button")].flatMap(
@@ -473,6 +543,98 @@ test("published routes expose real identity, canonical metadata, and an indexabl
         url: publicOrigin,
       }),
     ]),
+  );
+});
+
+test("project cards respond gently to a mouse and open from the keyboard", async ({
+  page,
+}) => {
+  await page.goto("/projects");
+  const card = page.getByRole("link", {
+    name: "Open GitGuide case study",
+    exact: true,
+  });
+  await card.hover({ position: { x: 60, y: 60 } });
+  await expect
+    .poll(() =>
+      card.evaluate((element) => getComputedStyle(element, "::after").opacity),
+    )
+    .toBe("1");
+  await expect
+    .poll(() =>
+      card.evaluate((element) =>
+        (element as HTMLElement).style.getPropertyValue("--pointer-x"),
+      ),
+    )
+    .not.toBe("");
+  await page.mouse.move(0, 0);
+  await expect
+    .poll(() =>
+      card.evaluate((element) => getComputedStyle(element, "::after").opacity),
+    )
+    .toBe("0");
+  await card.focus();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\/projects\/git-guide$/);
+  await expect(page.locator(".page-transition")).toHaveCSS(
+    "animation-duration",
+    "0.18s",
+  );
+  await page.getByRole("link", { name: /^Continue/ }).click();
+  await expect(page).toHaveURL(/\/projects\/fall-foliage$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Fall Foliage",
+  );
+  await page.goBack();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("GitGuide");
+});
+
+test("touch project cards open without pointer decoration", async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    hasTouch: true,
+    viewport: { width: 390, height: 844 },
+  });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:3100/");
+  await page.getByRole("button", { name: "Spin the daisy" }).tap();
+  await expect(page.locator(".daisy-spin")).toHaveAttribute("style", /360deg/);
+  await page.goto("http://127.0.0.1:3100/projects");
+  const card = page.getByRole("link", {
+    name: "Open Fall Foliage case study",
+    exact: true,
+  });
+  await expect
+    .poll(() =>
+      card.evaluate((element) => getComputedStyle(element, "::after").content),
+    )
+    .toBe("none");
+  await card.tap();
+  await expect(page).toHaveURL(/\/projects\/fall-foliage$/);
+  await context.close();
+});
+
+test("reduced motion removes pointer decoration while cards stay usable", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/projects");
+  const card = page.getByRole("link", {
+    name: "Open GitGuide case study",
+    exact: true,
+  });
+  await card.hover();
+  await expect
+    .poll(() =>
+      card.evaluate((element) => getComputedStyle(element, "::after").content),
+    )
+    .toBe("none");
+  await card.click();
+  await expect(page).toHaveURL(/\/projects\/git-guide$/);
+  await expect(page.locator(".page-transition")).toHaveCSS(
+    "animation-name",
+    "none",
   );
 });
 

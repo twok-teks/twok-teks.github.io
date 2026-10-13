@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import "./secondary.css";
-import "./portfolio-polish.css";
+import { PageTransition } from "@/components/page-transition";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { CloneChat } from "@/components/clone-chat";
@@ -16,7 +15,7 @@ const inter = localFont({
   preload: true,
   adjustFontFallback: "Arial",
 });
-const themeScript = `(function(){var p='system';try{var s=localStorage.getItem('portfolio-theme');if(['light','dark','system'].includes(s))p=s}catch(e){}var t=p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p;var d=document.documentElement;d.dataset.preference=p;d.dataset.theme=t;d.style.colorScheme=t;var m=document.createElement('meta');m.name='theme-color';m.id='portfolio-theme-color';m.content=t==='dark'?'#141517':'#fafaf9';document.head.appendChild(m)})()`;
+const themeScript = `(function(){var p='system';try{var s=localStorage.getItem('portfolio-theme');if(['light','dark','system'].includes(s))p=s}catch(e){}var t=p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):p;var d=document.documentElement;d.dataset.preference=p;d.dataset.theme=t;d.style.colorScheme=t;var m=document.createElement('meta');m.name='theme-color';m.id='portfolio-theme-color';m.content=t==='dark'?'#20221f':'#f7f5ef';document.head.appendChild(m)})()`;
 
 export const metadata: Metadata = {
   title: {
@@ -32,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: `${site.name} · Engineering portfolio`,
-    title: "Practical software. Thoughtful engineering.",
+    title: "Thoughtful software. Built for the real world.",
     description: site.description,
     images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
@@ -63,7 +62,7 @@ export default function RootLayout({
         </a>
         <Header />
         <main id="main" tabIndex={-1}>
-          {children}
+          <PageTransition>{children}</PageTransition>
         </main>
         <Footer />
         <CloneChat />

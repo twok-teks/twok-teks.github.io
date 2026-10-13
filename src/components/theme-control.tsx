@@ -50,7 +50,7 @@ function applyTheme(preference: Theme) {
   document.documentElement.style.colorScheme = resolved;
   document
     .querySelector('meta[name="theme-color"]')
-    ?.setAttribute("content", resolved === "dark" ? "#141517" : "#fafaf9");
+    ?.setAttribute("content", resolved === "dark" ? "#20221f" : "#f7f5ef");
 }
 
 export function ThemeControl() {
@@ -82,14 +82,5 @@ export function ThemeControl() {
         }
       />
     </button>
-  );
-}
-
-export function useResolvedTheme() {
-  return useSyncExternalStore(
-    subscribe,
-    () =>
-      document.documentElement.dataset.theme === "dark" ? "dark" : "light",
-    () => "light",
   );
 }

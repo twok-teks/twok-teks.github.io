@@ -1,10 +1,10 @@
 # Khanh Van · twok-teks
 
-A portfolio for software engineering and applied AI, built with Next.js App Router, TypeScript, and plain CSS. The site includes GitGuide, Fall Foliage, an LLM hallucination study, experience, education, and Khanh’s Clone.
+A warm, editorial portfolio for software engineering and applied AI, built with Next.js App Router, TypeScript, and plain CSS. The site includes GitGuide, Fall Foliage, an LLM hallucination study, experience, education, and Khanh’s Clone.
 
 ## Run locally
 
-Use Node.js 20.9+ and npm:
+Use Node.js 20.9+ and npm (in PowerShell with restricted script execution, use `npm.cmd` and `npx.cmd`):
 
 ```sh
 npm ci
@@ -35,30 +35,36 @@ The circular robot button opens a nonmodal panel. Visitors can continue using th
 
 The supplied résumé is available at `public/resume.pdf`; the research report at `public/research/hallucination-analysis.pdf`. Professional facts follow the résumé. Research numbers and limitations follow the April 2026 report, which is a demonstration study, not a claim of universal hallucination detection. GitGuide and Fall Foliage details were checked against their public repositories. GitGuide is classified as applied AI because of its Git-panion assistant.
 
-| File                          | Edit                                                                               |
-| ----------------------------- | ---------------------------------------------------------------------------------- |
-| `src/content/site.ts`         | Name, nickname, role, public URLs, contact, canonical origin                       |
-| `src/content/projects.ts`     | Project summaries, shorter preview outcomes, case studies, source/demo/paper links |
-| `src/content/experience.ts`   | Roles, dates, outcomes, technologies                                               |
-| `src/content/education.ts`    | Degrees, honors, expected/completed dates                                          |
-| `src/content/publications.ts` | Research report citation and links                                                 |
-| `src/content/about.ts`        | Nickname story, interests, games, working principles                               |
-| `src/lib/chat/context.ts`     | Assistant source assembly                                                          |
-| `src/lib/chat/`               | Reviewed source snapshots, provider integration, policy, request validation        |
+| File                            | Edit                                                                               |
+| ------------------------------- | ---------------------------------------------------------------------------------- |
+| `src/content/site.ts`           | Name, nickname, role, public URLs, contact, canonical origin                       |
+| `src/content/projects.ts`       | Project summaries, shorter preview outcomes, case studies, source/demo/paper links |
+| `src/content/experience.ts`     | Roles, dates, outcomes, technologies                                               |
+| `src/content/certifications.ts` | Verified earned credentials; empty until supplied                                  |
+| `src/content/education.ts`      | Degrees, honors, expected/completed dates                                          |
+| `src/content/publications.ts`   | Research report citation and links                                                 |
+| `src/content/about.ts`          | Nickname story, interests, games, working principles                               |
+| `src/lib/chat/context.ts`       | Assistant source assembly                                                          |
+| `src/lib/chat/`                 | Reviewed source snapshots, provider integration, policy, request validation        |
 
-Project images can be added later without changing the layouts. Put files in `public/projects/`, then set `media` and an optional `mediaCaption` on the project:
+Project content is centralized in `src/content/projects.ts`. Put screenshots in `public/projects/` and add them to a project's `media` array:
 
 ```ts
-media: {
-  type: "image",
-  src: "/projects/git-guide.png",
-  alt: "Describe the actual screenshot.",
-  width: 1600,
-  height: 1000,
-},
+media: [
+  {
+    type: "image",
+    src: "/projects/my-project/screenshot.png",
+    alt: "Describe the actual screenshot.",
+    width: 1600,
+    height: 1000,
+    caption: "What this view demonstrates.",
+  },
+],
 ```
 
-The same field also accepts video (with captions) or a code excerpt; see `ContentMedia` in `src/content/types.ts`. Until images are supplied, the featured projects show clearly labeled diagrams. Missing demo URLs stay omitted.
+The array also supports PDFs, captioned video, and code excerpts; see `ContentMedia` in `src/content/types.ts`. Overview cards use the first screenshot or a text cover. Interactive galleries appear on the detail pages. Missing demo URLs stay omitted.
+
+No earned certifications appear in the supplied résumé or existing content. Add only verified earned credentials to `src/content/certifications.ts`; the Experience section stays hidden until then. Public-safe descriptions, role, status, and any available links/screenshots are still needed before adding separate case studies for the internal agent or “What Happened?” concept. No additional assets are required for the implemented redesign.
 
 ## Assistant behavior
 
@@ -72,7 +78,13 @@ The API applies request and response size limits, a provider timeout, same-origi
 
 ## Design and metadata
 
-[DESIGN.MD](./DESIGN.MD) records the visual system. Global styles, secondary layouts, and the current portfolio refinements live in `src/app/*.css`; chat styles live beside its component. Inter is hosted locally with preload and a metric-adjusted fallback. Themes follow the system by default and persist manual selection.
+[DESIGN.MD](./DESIGN.MD) records the visual system. Shared styles live in `src/app/globals.css`; chat styles live beside its component. An 860px column, ivory/espresso surfaces, forest/sage accents, bold local Inter headings, and italic serif accents keep the portfolio compact and personal. No dependencies were added
+
+Home is a short introduction with recruiter-relevant facts, résumé download and an Experience link, and one personal line. Projects and Experience hold the detailed content; education and optional earned certifications live on Experience. `/about` permanently redirects to Home, with the sitemap and assistant links updated accordingly
+
+The original daisy keeps the same colors in both themes. On Home it follows mouse movement and spins on click, tap, or keyboard activation. Touch disables pointer-following; reduced motion removes movement and animation. Project cards retain their subtle hover highlight, and routes fade in for 180ms without delaying navigation
+
+The assistant shows a dismissible “Learn more about Khanh?” prompt after 1.4 seconds. It opens chat only when selected; dismissing it or opening chat suppresses the invitation for the tab. Themes still support system preferences and persisted manual selection without an initial flash
 
 Metadata, sitemap, canonical URLs, Person structured data, favicon, and generated social previews use the verified identity and `https://twok-teks.space` by default. Override `NEXT_PUBLIC_SITE_URL` before building for a different public origin. This workspace does not deploy or replace the existing public site automatically.
 

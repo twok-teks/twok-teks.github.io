@@ -72,7 +72,7 @@ export function ExperienceCard({
         <span className="career-card-heading">
           <span className="eyebrow">{item.company}</span>
           <h3>{item.role}</h3>
-          <span>{item.summary}</span>
+          <span>{item.summary.replace(/\.$/, "")}</span>
         </span>
         <span className="career-card-period">{item.period}</span>
         <span className="career-card-toggle" aria-hidden="true">
@@ -83,7 +83,7 @@ export function ExperienceCard({
         {item.highlights.length > 0 && (
           <ul>
             {item.highlights.map((highlight) => (
-              <li key={highlight}>{highlight}</li>
+              <li key={highlight}>{highlight.replace(/\.$/, "")}</li>
             ))}
           </ul>
         )}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ExperienceCard, SchoolMark } from "@/components/experience-card";
 import { Icon } from "@/components/icon";
 import { education } from "@/content/education";
+import { certifications } from "@/content/certifications";
 import {
   experience as experiences,
   researchExperience,
@@ -21,13 +22,7 @@ export default function ExperiencePage() {
   return (
     <div className="container secondary-page experience-page">
       <header className="page-hero experience-hero">
-        <p className="eyebrow">Career record</p>
-        <h1>
-          From idea to production<span className="accent">.</span>
-        </h1>
-        <p className="lede">
-          Backend systems, reliable releases, and applied AI.
-        </p>
+        <h1>Experience</h1>
         {site.resume && (
           <a className="button button-secondary" href={site.resume}>
             View résumé <Icon name="arrow-up-right" size={16} />
@@ -64,9 +59,9 @@ export default function ExperiencePage() {
         <div className="section-heading experience-section-heading">
           <div>
             <span className="section-index">01 / INDUSTRY</span>
-            <h2 id="industry-title">Built in production.</h2>
+            <h2 id="industry-title">Professional experience</h2>
           </div>
-          <p className="muted">Select a role to open the details.</p>
+          <p className="muted">Select a role for more</p>
         </div>
         <div className="career-list">
           {experiences.map((item, index) => (
@@ -88,7 +83,7 @@ export default function ExperiencePage() {
         <div className="section-heading experience-section-heading">
           <div>
             <span className="section-index">02 / RESEARCH</span>
-            <h2 id="research-title">Questions worth testing.</h2>
+            <h2 id="research-title">Research</h2>
           </div>
         </div>
         <div className="career-list">
@@ -136,7 +131,7 @@ export default function ExperiencePage() {
         <div className="section-heading experience-section-heading">
           <div>
             <span className="section-index">03 / EDUCATION</span>
-            <h2 id="education-title">Foundations.</h2>
+            <h2 id="education-title">Education</h2>
           </div>
         </div>
         <div className="education-cards">
@@ -156,18 +151,38 @@ export default function ExperiencePage() {
         </div>
       </section>
 
-      <section
-        className="secondary-closing"
-        aria-labelledby="experience-next-title"
-      >
-        <div>
-          <p className="eyebrow">See it in context</p>
-          <h2 id="experience-next-title">Explore the implementation.</h2>
-        </div>
-        <Link className="button button-secondary" href="/projects">
+      {certifications.length > 0 && (
+        <section className="section" aria-labelledby="certifications-title">
+          <div className="section-heading">
+            <h2 id="certifications-title">Certifications</h2>
+          </div>
+          <div className="resume-list">
+            {certifications.map((item) => (
+              <article className="resume-row" key={item.name}>
+                <p className="resume-date">{item.earned}</p>
+                <div>
+                  <h3>
+                    {item.url ? (
+                      <a className="text-link" href={item.url}>
+                        {item.name} <Icon name="arrow-up-right" size={15} />
+                      </a>
+                    ) : (
+                      item.name
+                    )}
+                  </h3>
+                  <p className="resume-role">{item.issuer}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <nav className="secondary-closing" aria-label="Explore projects">
+        <Link className="text-link" href="/projects">
           Browse projects <Icon name="arrow-right" size={16} />
         </Link>
-      </section>
+      </nav>
     </div>
   );
 }

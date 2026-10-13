@@ -37,6 +37,39 @@ const longReply = Array.from(
     `Project note ${index + 1}: software, thoughtful decisions, and the evidence behind the work.`,
 ).join("\n\n");
 
+test("the invitation opens chat and stays dismissed after use", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const invitation = page.getByRole("button", {
+    name: /Learn more about Khanh/,
+  });
+  await expect(invitation).toBeVisible();
+  await invitation.click();
+  await expect(dialog(page)).toBeVisible();
+  await expect(question(page)).toBeFocused();
+  await page.keyboard.press("Escape");
+  await page.reload();
+  await page.waitForTimeout(1700);
+  await expect(invitation).toHaveCount(0);
+});
+
+test("the invitation can be dismissed without opening chat", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Dismiss chat invitation" }).click();
+  await expect(dialog(page)).toBeHidden();
+  await expect(page.getByRole("button", { name: /Open Khanh/ })).toBeFocused();
+  await page
+    .getByRole("navigation", { name: "Main navigation" })
+    .getByRole("link", { name: "Projects", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: /Learn more about Khanh/ }),
+  ).toHaveCount(0);
+});
+
 test("launcher opens a nonmodal guide and the site remains navigable", async ({
   page,
 }) => {
@@ -54,8 +87,10 @@ test("launcher opens a nonmodal guide and the site remains navigable", async ({
   }
   await question(page).fill("An unfinished question");
   const navigation = page.getByRole("navigation", { name: "Main navigation" });
-  await navigation.getByRole("link", { name: "About", exact: true }).click();
-  await expect(page).toHaveURL(/\/about$/);
+  await navigation
+    .getByRole("link", { name: "Experience", exact: true })
+    .click();
+  await expect(page).toHaveURL(/\/experience$/);
   await expect(dialog(page)).toBeVisible();
   await expect(question(page)).toHaveValue("An unfinished question");
   await expect(question(page)).not.toBeFocused();
@@ -131,9 +166,9 @@ test("minimize, route navigation, and reload retain the draft, transcript, and s
   await expect(dialog(page)).toBeHidden();
   await page
     .getByRole("navigation", { name: "Main navigation" })
-    .getByRole("link", { name: "About", exact: true })
+    .getByRole("link", { name: "Experience", exact: true })
     .click();
-  await expect(page).toHaveURL(/\/about$/);
+  await expect(page).toHaveURL(/\/experience$/);
   await openChat(page);
   await expect(question(page)).toHaveValue("Keep this draft for later");
   await expect(assistantMessages(page)).toContainText("Project note 42");
@@ -380,6 +415,12 @@ for (const colorScheme of ["light", "dark"] as const) {
     await page.emulateMedia({ colorScheme });
     await page.goto("/");
     await openChat(page);
+    // The scan includes the page behind this nonmodal panel; wait for its fade.
+    await page.locator(".page-transition").evaluate(async (element) => {
+      await Promise.all(
+        element.getAnimations().map((animation) => animation.finished),
+      );
+    });
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
       .analyze();

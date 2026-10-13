@@ -9,9 +9,9 @@ import { Icon } from "./icon";
 import { ThemeControl } from "./theme-control";
 
 const links = [
+  { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
   { href: "/experience", label: "Experience" },
-  { href: "/about", label: "About" },
 ];
 
 export function Header() {
@@ -56,42 +56,28 @@ export function Header() {
             priority
             aria-hidden="true"
           />
-          <span>
-            {site.name}
-            <span className="wordmark-period">.</span>
-          </span>
+          <span>{site.name}</span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              aria-current={pathname.startsWith(link.href) ? "page" : undefined}
+              aria-current={
+                (
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(link.href)
+                )
+                  ? "page"
+                  : undefined
+              }
             >
               {link.label}
             </Link>
           ))}
         </nav>
         <div className="header-utilities">
-          {site.resume ? (
-            <a
-              className="resume-link"
-              href={site.resume}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Resume <Icon name="arrow-up-right" size={15} />
-            </a>
-          ) : (
-            <span
-              className="resume-unavailable"
-              title="A resume has not been supplied yet"
-            >
-              Resume <span className="availability-dot" aria-hidden="true" />
-              <span className="sr-only"> unavailable</span>
-            </span>
-          )}
-          <span className="utility-divider" aria-hidden="true" />
           <ThemeControl />
           <button
             ref={menuButton}
@@ -111,11 +97,19 @@ export function Header() {
         aria-label="Mobile navigation"
         hidden={!open}
       >
-        {[{ href: "/", label: "Home" }, ...links].map((link) => (
+        {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            aria-current={pathname === link.href ? "page" : undefined}
+            aria-current={
+              (
+                link.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(link.href)
+              )
+                ? "page"
+                : undefined
+            }
             onClick={() => setOpenedPath(null)}
           >
             {link.label}

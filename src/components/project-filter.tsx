@@ -51,13 +51,9 @@ export function ProjectFilter({ projects }: { projects: Project[] }) {
       <p className="sr-only" role="status">
         {visible.length} {visible.length === 1 ? "project" : "projects"} shown
       </p>
-      <div className="selected-projects">
+      <div className="project-grid">
         {visible.map((project) => (
-          <ProjectFeature
-            key={project.slug}
-            project={project}
-            index={projects.indexOf(project)}
-          />
+          <ProjectFeature key={project.slug} project={project} />
         ))}
       </div>
     </>

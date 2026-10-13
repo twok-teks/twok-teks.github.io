@@ -121,8 +121,8 @@ export function ProjectGallery({
             priority={item.priority}
             sizes={
               variant === "detail"
-                ? "(max-width: 768px) 100vw, 1160px"
-                : "(max-width: 800px) 100vw, 700px"
+                ? "(max-width: 924px) 100vw, 860px"
+                : "(max-width: 600px) 100vw, 420px"
             }
           />
         ) : item.type === "pdf" ? (

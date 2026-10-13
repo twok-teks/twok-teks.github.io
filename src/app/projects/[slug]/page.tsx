@@ -73,7 +73,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         <p className="eyebrow">Project case study</p>
         <h1>{project.title}</h1>
         <p className="detail-descriptor">{project.descriptor}</p>
-        <p className="lede">{project.summary}</p>
+        <p className="lede">{project.summary.replace(/\.$/, "")}</p>
         <dl className="detail-meta">
           <div>
             <dt className="meta-label">Year</dt>
